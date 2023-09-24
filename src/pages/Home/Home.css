@@ -1,0 +1,19 @@
+.catBtnItem {
+  background-color: #f2f6f6 !important;
+  border: 1px solid transparent !important;
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 60px !important;
+  margin-bottom: 10px !important;
+}
+.iconCatBtn {
+  font-size: 45px !important;
+}
+.catBtn:hover {
+  .catBtnItem {
+    background-color: #306c6c !important;
+  }
+  .iconCatBtn {
+    color: white;
+  }
+}
