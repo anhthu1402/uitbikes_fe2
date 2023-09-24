@@ -46,7 +46,7 @@ function Navigation(props) {
         <AppAppBar
           position="fixed"
           style={{
-            height: "4.5rem",
+            height: "5rem",
             backgroundColor: "white",
           }}
         >

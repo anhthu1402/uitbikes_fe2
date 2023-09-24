@@ -4,10 +4,12 @@ import {
   PedalBikeRounded,
   TwoWheelerRounded,
 } from "@mui/icons-material";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import React from "react";
 import "./Home.css";
 import ImageSlider from "../../components/ImageSlider/ImageSlider";
+import { ProductData } from "../../components/Data/ProductData";
+import ProductItem from "../../components/Item/Product/ProductItem";
 
 function Home() {
   return (
@@ -22,6 +24,7 @@ function Home() {
           alignItems: "center",
           justifyContent: "space-evenly",
           textAlign: "center",
+          marginBottom: 5,
         }}
       >
         <div
@@ -34,7 +37,7 @@ function Home() {
           }}
         >
           <Button className="catBtnItem" variant="contained">
-            <BorderAllRounded color="disabled" className="iconCatBtn" />
+            <BorderAllRounded className="iconCatBtn" />
           </Button>
           <p>Tất cả</p>
         </div>
@@ -80,6 +83,20 @@ function Home() {
           </Button>
           <p>Xe phân khối lớn</p>
         </div>
+      </Box>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+          justifyContent={"space-between"}
+        >
+          {ProductData.map((child, index) => (
+            <Grid item xs={2} sm={4} md={4} key={index} marginBottom={2}>
+              <ProductItem />
+            </Grid>
+          ))}
+        </Grid>
       </Box>
     </div>
   );

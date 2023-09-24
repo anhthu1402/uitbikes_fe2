@@ -7,7 +7,7 @@ function MainLayout() {
   return (
     <Container>
       <Navigation />
-      <div className="main-content" style={{ marginTop: 73 }}>
+      <div className="main-content" style={{ marginTop: 81 }}>
         <Outlet />
       </div>
     </Container>

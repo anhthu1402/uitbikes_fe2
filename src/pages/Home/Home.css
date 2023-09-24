@@ -8,12 +8,13 @@
 }
 .iconCatBtn {
   font-size: 45px !important;
+  color: #77c9c9 !important;
 }
 .catBtn:hover {
   .catBtnItem {
     background-color: #306c6c !important;
   }
   .iconCatBtn {
-    color: white;
+    color: white !important;
   }
 }
