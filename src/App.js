@@ -7,6 +7,7 @@ import Cart from './pages/Cart';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Signin from './pages/Signin';
+import ProductDetail from './pages/ProductDetail/ProductDetail';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: 'signin',
         element: <Signin />
+      },
+      {
+        path: 'product-detail/*',
+        element: <ProductDetail />
       },
     ]
   }

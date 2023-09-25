@@ -10,6 +10,7 @@ import "./Home.css";
 import ImageSlider from "../../components/ImageSlider/ImageSlider";
 import { ProductData } from "../../components/Data/ProductData";
 import ProductItem from "../../components/Item/Product/ProductItem";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -93,7 +94,9 @@ function Home() {
         >
           {ProductData.map((child, index) => (
             <Grid item xs={2} sm={4} md={4} key={index} marginBottom={2}>
-              <ProductItem />
+              <Link to={"/product-detail/" + child.p_id} state={child}>
+                <ProductItem item={child} index={index} />
+              </Link>
             </Grid>
           ))}
         </Grid>

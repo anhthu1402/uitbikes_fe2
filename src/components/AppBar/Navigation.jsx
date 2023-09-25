@@ -23,6 +23,7 @@ import {
 } from "@mui/icons-material";
 import RegisterIcon from "../../assets/images/register.png";
 import SigninIcon from "../../assets/images/sigin.png";
+import { Link } from "react-router-dom";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -68,7 +69,9 @@ function Navigation(props) {
                 }}
               >
                 <Box sx={{ cursor: "pointer" }}>
-                  <img src={Logo} alt="" width={90} />
+                  <Link to={"/"}>
+                    <img src={Logo} alt="" width={90} />
+                  </Link>
                 </Box>
                 <Box
                   sx={{
