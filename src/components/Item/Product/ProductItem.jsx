@@ -46,7 +46,9 @@ function ProductItem({ item }) {
           alt=""
           ref={containerRef}
         />
-        <CardContent sx={{ backgroundColor: "#3c7474", color: "white" }}>
+        <CardContent
+          sx={{ backgroundColor: "#3c7474", color: "white", height: 130 }}
+        >
           <Typography gutterBottom variant="h5" component={"div"}>
             {item.name}
           </Typography>

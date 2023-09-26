@@ -5,19 +5,39 @@ import {
   CardContent,
   CardMedia,
   Grid,
-  TextField,
   ButtonGroup,
   Typography,
   InputBase,
 } from "@mui/material";
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 function ProductDetail() {
   const location = useLocation();
   const product = location.state;
-  const color = ["Đen", "Đỏ", "Vàng", "Xanh"];
+  const [productDetail, setProductDetail] = useState([]);
+  const [detail, setDetail] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:9090/api/products/detail/names/" + product.name)
+      .then((response) => {
+        setProductDetail(response.data);
+        setDetail(response.data.detail);
+      });
+  }, [product, productDetail]);
   const [quantity, setQuantity] = useState(0);
+  const [chooseProduct, setChooseProduct] = useState(product.id);
+  const [price, setPrice] = useState();
+  const [image, setImage] = useState();
+  useEffect(() => {
+    detail.map((child) => {
+      if (chooseProduct === child.id) {
+        setPrice(child.price);
+        setImage(child.image);
+      }
+    });
+  }, [image, price, chooseProduct, detail]);
   const quantityRef = useRef();
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
@@ -60,7 +80,7 @@ function ProductDetail() {
                     marginLeft: 8,
                   }}
                 >
-                  {product.price} VNĐ
+                  {price} VNĐ
                 </span>
               </Typography>
             </CardContent>
@@ -78,9 +98,9 @@ function ProductDetail() {
             Màu sắc:
           </Typography>
           <Grid container sx={{ marginTop: 3 }}>
-            {color.map((child, index) => (
+            {detail.map((child, index) => (
               <Button
-                variant="outlined"
+                variant={chooseProduct === child.id ? "contained" : "outlined"}
                 color="success"
                 sx={{
                   padding: "5px 10px",
@@ -89,8 +109,9 @@ function ProductDetail() {
                   borderColor: "gray",
                   marginBottom: 3,
                 }}
+                onClick={() => setChooseProduct(child.id)}
               >
-                {child}
+                {child.color}
               </Button>
             ))}
           </Grid>
@@ -157,7 +178,7 @@ function ProductDetail() {
         </Grid>
       </Grid>
       <Box sx={{ marginTop: 7 }}>
-        <h2>Thông số kỹ thuật</h2>
+        <h2>Thông tin chi tiết</h2>
       </Box>
     </Box>
   );

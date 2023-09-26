@@ -5,14 +5,23 @@ import {
   TwoWheelerRounded,
 } from "@mui/icons-material";
 import { Box, Button, Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import ImageSlider from "../../components/ImageSlider/ImageSlider";
-import { ProductData } from "../../components/Data/ProductData";
 import ProductItem from "../../components/Item/Product/ProductItem";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Home() {
+  const [data, setData] = useState([]);
+  const [type, setType] = useState(0);
+  useEffect(() => {
+    axios
+      .get("http://localhost:9090/api/products/details/type/" + type)
+      .then((response) => {
+        setData(response.data);
+      });
+  }, [type, data]);
   return (
     <div>
       <Box sx={{ marginBottom: 5 }}>
@@ -37,7 +46,13 @@ function Home() {
             cursor: "pointer",
           }}
         >
-          <Button className="catBtnItem" variant="contained">
+          <Button
+            className="catBtnItem"
+            variant="contained"
+            onClick={() => {
+              setType(0);
+            }}
+          >
             <BorderAllRounded className="iconCatBtn" />
           </Button>
           <p>Tất cả</p>
@@ -51,7 +66,11 @@ function Home() {
             cursor: "pointer",
           }}
         >
-          <Button className="catBtnItem" variant="contained">
+          <Button
+            className="catBtnItem"
+            variant="contained"
+            onClick={() => setType(2)}
+          >
             <MopedRounded color="disabled" className="iconCatBtn" />
           </Button>
           <p>Xe tay ga</p>
@@ -65,7 +84,11 @@ function Home() {
             cursor: "pointer",
           }}
         >
-          <Button className="catBtnItem" variant="contained">
+          <Button
+            className="catBtnItem"
+            variant="contained"
+            onClick={() => setType(1)}
+          >
             <PedalBikeRounded color="disabled" className="iconCatBtn" />
           </Button>
           <p>Xe số</p>
@@ -79,7 +102,11 @@ function Home() {
             cursor: "pointer",
           }}
         >
-          <Button className="catBtnItem" variant="contained">
+          <Button
+            className="catBtnItem"
+            variant="contained"
+            onClick={() => setType(3)}
+          >
             <TwoWheelerRounded color="disabled" className="iconCatBtn" />
           </Button>
           <p>Xe phân khối lớn</p>
@@ -92,13 +119,14 @@ function Home() {
           columns={{ xs: 4, sm: 8, md: 12 }}
           justifyContent={"space-between"}
         >
-          {ProductData.map((child, index) => (
-            <Grid item xs={2} sm={4} md={4} key={index} marginBottom={2}>
-              <Link to={"/product-detail/" + child.p_id} state={child}>
-                <ProductItem item={child} index={index} />
-              </Link>
-            </Grid>
-          ))}
+          {data &&
+            data.map((child, index) => (
+              <Grid item xs={2} sm={4} md={4} key={index} marginBottom={2}>
+                <Link to={"/product-detail/" + child.p_id} state={child}>
+                  <ProductItem item={child} key={index} />
+                </Link>
+              </Grid>
+            ))}
         </Grid>
       </Box>
     </div>
