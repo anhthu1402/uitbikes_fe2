@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import "./ProductDetail.css";
 
 function ProductDetail() {
   const location = useLocation();
@@ -179,6 +180,20 @@ function ProductDetail() {
       </Grid>
       <Box sx={{ marginTop: 7 }}>
         <h2>Thông tin chi tiết</h2>
+        <table className="detailTable">
+          <tr>
+            <td>Năm sản xuất</td>
+            <td>{product.date}</td>
+          </tr>
+          <tr>
+            <td>Phân khối</td>
+            <td>{product.cc} cc</td>
+          </tr>
+        </table>
+      </Box>
+      <Box>
+        <h2>Mô tả</h2>
+        <p>{product.describe}</p>
       </Box>
     </Box>
   );

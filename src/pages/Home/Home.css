@@ -1,5 +1,4 @@
 .catBtnItem {
-  background-color: #f2f6f6 !important;
   border: 1px solid transparent !important;
   width: 110px !important;
   height: 110px !important;
@@ -8,7 +7,6 @@
 }
 .iconCatBtn {
   font-size: 45px !important;
-  color: #77c9c9 !important;
 }
 .catBtn:hover {
   .catBtnItem {

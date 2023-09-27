@@ -22,7 +22,7 @@ function ImageSlider() {
         className="d-block"
         width={"100%"}
         itemId={3}
-        src="https://www.pixelstalk.net/wp-content/uploads/2016/06/Images-Download-Motorcycle-Backgrounds.jpg"
+        src={require("../../assets/images/Banner5.jpg")}
         alt=""
       />
       <MDBCarouselItem

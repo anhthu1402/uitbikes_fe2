@@ -11,10 +11,19 @@ import ImageSlider from "../../components/ImageSlider/ImageSlider";
 import ProductItem from "../../components/Item/Product/ProductItem";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import TypeList from "../../components/TypeList";
 
 function Home() {
   const [data, setData] = useState([]);
-  const [type, setType] = useState(0);
+  const [type, setType] = useState(
+    sessionStorage.getItem("type")
+      ? JSON.parse(sessionStorage.getItem("type"))
+      : 0
+  );
+  const handleChangeType = (val) => {
+    setType(val);
+    sessionStorage.setItem("type", JSON.stringify(val));
+  };
   useEffect(() => {
     axios
       .get("http://localhost:9090/api/products/details/type/" + type)
@@ -27,91 +36,7 @@ function Home() {
       <Box sx={{ marginBottom: 5 }}>
         <ImageSlider />
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-          textAlign: "center",
-          marginBottom: 5,
-        }}
-      >
-        <div
-          className="catBtn"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            cursor: "pointer",
-          }}
-        >
-          <Button
-            className="catBtnItem"
-            variant="contained"
-            onClick={() => {
-              setType(0);
-            }}
-          >
-            <BorderAllRounded className="iconCatBtn" />
-          </Button>
-          <p>Tất cả</p>
-        </div>
-        <div
-          className="catBtn"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            cursor: "pointer",
-          }}
-        >
-          <Button
-            className="catBtnItem"
-            variant="contained"
-            onClick={() => setType(2)}
-          >
-            <MopedRounded color="disabled" className="iconCatBtn" />
-          </Button>
-          <p>Xe tay ga</p>
-        </div>
-        <div
-          className="catBtn"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-            cursor: "pointer",
-          }}
-        >
-          <Button
-            className="catBtnItem"
-            variant="contained"
-            onClick={() => setType(1)}
-          >
-            <PedalBikeRounded color="disabled" className="iconCatBtn" />
-          </Button>
-          <p>Xe số</p>
-        </div>
-        <div
-          className="catBtn"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            cursor: "pointer",
-          }}
-        >
-          <Button
-            className="catBtnItem"
-            variant="contained"
-            onClick={() => setType(3)}
-          >
-            <TwoWheelerRounded color="disabled" className="iconCatBtn" />
-          </Button>
-          <p>Xe phân khối lớn</p>
-        </div>
-      </Box>
+      <TypeList handleChangeType={handleChangeType} type={type} />
       <Box sx={{ flexGrow: 1 }}>
         <Grid
           container

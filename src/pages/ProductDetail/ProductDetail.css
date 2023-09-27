@@ -1,0 +1,11 @@
+.detailTable {
+  background-color: whitesmoke;
+  width: 80%;
+  margin: 30px auto;
+}
+.detailTable tr td {
+  padding: 20px;
+}
+.detailTable tr:nth-child(even) {
+  background-color: #fdfcfc;
+}
