@@ -27,7 +27,7 @@ function ProductDetail() {
         setDetail(response.data.detail);
       });
   }, [product, productDetail]);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [chooseProduct, setChooseProduct] = useState(product.id);
   const [price, setPrice] = useState();
   const [image, setImage] = useState();
@@ -42,7 +42,7 @@ function ProductDetail() {
   const quantityRef = useRef();
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
-    if (quantity > 0) {
+    if (quantity > 1) {
       setDisabled(false);
     } else {
       setDisabled(true);
@@ -57,7 +57,7 @@ function ProductDetail() {
     setQuantity(q);
   };
   return (
-    <Box sx={{ flexGrow: 1, marginTop: 10 }}>
+    <Box sx={{ flexGrow: 1, marginTop: 12 }}>
       <Grid container spacing={{ xs: 1, md: 4 }} columns={{ xs: 4, md: 12 }}>
         <Grid item xs={12} sm={6} md={6}>
           <Card>
@@ -181,6 +181,14 @@ function ProductDetail() {
       <Box sx={{ marginTop: 7 }}>
         <h2>Thông tin chi tiết</h2>
         <table className="detailTable">
+          <tr>
+            <td>Hãng xe</td>
+            <td>{product.brand.name}</td>
+          </tr>
+          <tr>
+            <td>Loại xe</td>
+            <td>{product.type.name}</td>
+          </tr>
           <tr>
             <td>Năm sản xuất</td>
             <td>{product.date}</td>

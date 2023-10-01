@@ -1,10 +1,4 @@
-import {
-  BorderAllRounded,
-  MopedRounded,
-  PedalBikeRounded,
-  TwoWheelerRounded,
-} from "@mui/icons-material";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import ImageSlider from "../../components/ImageSlider/ImageSlider";
