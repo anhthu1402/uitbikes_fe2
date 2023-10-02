@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   InputBase,
-  Menu,
   Toolbar,
   Container,
   CssBaseline,

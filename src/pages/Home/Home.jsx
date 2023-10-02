@@ -30,7 +30,7 @@ function Home() {
       <Box sx={{ marginBottom: 5 }}>
         <ImageSlider />
       </Box>
-      <TypeList handleChangeType={handleChangeType} type={type} />
+      <TypeList handleChangeType={handleChangeType} />
       <Box sx={{ flexGrow: 1 }}>
         <Grid
           container

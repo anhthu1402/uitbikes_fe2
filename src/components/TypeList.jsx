@@ -2,7 +2,7 @@ import { Box, Button } from "@mui/material";
 import React from "react";
 import { TypeData } from "./Data/TypeData";
 
-function TypeList({ handleChangeType, type }) {
+function TypeList({ handleChangeType }) {
   return (
     <Box
       sx={{
@@ -30,7 +30,11 @@ function TypeList({ handleChangeType, type }) {
             variant="contained"
             onClick={() => handleChangeType(child.id)}
             sx={
-              JSON.parse(sessionStorage.getItem("type")) === child.id
+              sessionStorage.getItem("type")
+                ? JSON.parse(sessionStorage.getItem("type")) === child.id
+                  ? { backgroundColor: "#306c6c" }
+                  : { backgroundColor: "#f2f6f6" }
+                : child.id === 0
                 ? { backgroundColor: "#306c6c" }
                 : { backgroundColor: "#f2f6f6" }
             }
@@ -38,7 +42,11 @@ function TypeList({ handleChangeType, type }) {
             <child.icon
               className="iconCatBtn"
               sx={
-                JSON.parse(sessionStorage.getItem("type")) === child.id
+                sessionStorage.getItem("type")
+                  ? JSON.parse(sessionStorage.getItem("type")) === child.id
+                    ? { color: "white" }
+                    : { color: "#77c9c9" }
+                  : child.id === 0
                   ? { color: "white" }
                   : { color: "#77c9c9" }
               }
