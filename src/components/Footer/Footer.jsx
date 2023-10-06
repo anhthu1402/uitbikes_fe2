@@ -1,11 +1,13 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
     <Box
       sx={{
         flexGrow: 1,
+        marginBottom: 2,
       }}
     >
       <Grid
@@ -26,7 +28,7 @@ function Footer() {
           md={4}
         >
           <div>
-            <h5>UIT BIKES</h5>
+            <h5 style={{ marginBottom: 15 }}>UIT BIKES</h5>
             <Box>
               <p>
                 <b>Địa chỉ: </b>Trường Đại học CNTT, Khu phố 6, P.Linh Trung,
@@ -51,7 +53,7 @@ function Footer() {
           textAlign={{ xs: "center", sm: "center", md: "left" }}
         >
           <div>
-            <h5>VỀ CHÚNG TÔI</h5>
+            <h5 style={{ marginBottom: 15 }}>VỀ CHÚNG TÔI</h5>
             <Box>
               <p>
                 <a href="#">Điều khoản sử dụng</a>
@@ -81,7 +83,7 @@ function Footer() {
           textAlign={{ xs: "center", sm: "center", md: "left" }}
         >
           <div>
-            <h5>HỖ TRỢ KHÁCH HÀNG</h5>
+            <h5 style={{ marginBottom: 15 }}>HỖ TRỢ KHÁCH HÀNG</h5>
             <Box>
               <p>
                 <b>Hotline: </b>1234567890 (9:00 - 21:00)
@@ -109,7 +111,51 @@ function Footer() {
           backgroundColor: "gray",
         }}
       />
-      <div></div>
+      <Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: 180,
+          }}
+        >
+          <Link to={"http://localhost:3000"} target="_blank">
+            <img
+              title="Template 1"
+              src={require("../../assets/images/github.png")}
+              alt=""
+              width={30}
+            />
+          </Link>
+          <Link to={"http://localhost:3000"} target="_blank">
+            <img
+              title="Template 2"
+              src={require("../../assets/images/github.png")}
+              alt=""
+              width={30}
+            />
+          </Link>
+          <Link to={"http://localhost:3000"} target="_blank">
+            <img
+              title="Template 3"
+              src={require("../../assets/images/github.png")}
+              alt=""
+              width={30}
+            />
+          </Link>
+          <Link to={"http://localhost:3000"} target="_blank">
+            <img
+              title="Admin"
+              src={require("../../assets/images/github.png")}
+              alt=""
+              width={30}
+            />
+          </Link>
+        </Box>
+        <Box></Box>
+      </Box>
     </Box>
   );
 }

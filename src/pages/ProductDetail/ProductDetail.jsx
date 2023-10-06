@@ -29,6 +29,7 @@ function ProductDetail() {
   }, [product, productDetail]);
   const [quantity, setQuantity] = useState(1);
   const [chooseProduct, setChooseProduct] = useState(product.id);
+  const [maxQuantity, setMaxQuantity] = useState(product.quantity);
   const [price, setPrice] = useState();
   const [image, setImage] = useState();
   useEffect(() => {
@@ -40,14 +41,20 @@ function ProductDetail() {
     });
   }, [image, price, chooseProduct, detail]);
   const quantityRef = useRef();
-  const [disabled, setDisabled] = useState(true);
+  const [disabledDecrease, setDisabledDecrease] = useState(true);
+  const [disabledIncrease, setDisabledIncrease] = useState(false);
   useEffect(() => {
     if (quantity > 1) {
-      setDisabled(false);
+      setDisabledDecrease(false);
     } else {
-      setDisabled(true);
+      setDisabledDecrease(true);
     }
-  }, [disabled, quantity]);
+    if (quantity === maxQuantity) {
+      setDisabledIncrease(true);
+    } else {
+      setDisabledIncrease(false);
+    }
+  }, [disabledDecrease, disabledIncrease, quantity, maxQuantity]);
   const handleIncrease = () => {
     let q = quantity + 1;
     setQuantity(q);
@@ -61,7 +68,11 @@ function ProductDetail() {
       <Grid container spacing={{ xs: 1, md: 4 }} columns={{ xs: 4, md: 12 }}>
         <Grid item xs={12} sm={6} md={6}>
           <Card>
-            <CardMedia component={"img"} image={product.image} alt="" />
+            <CardMedia
+              component={"img"}
+              image={require("../../assets/images/XTG_1.png")}
+              alt=""
+            />
             <CardContent
               sx={{
                 backgroundColor: "lightgray",
@@ -110,7 +121,11 @@ function ProductDetail() {
                   borderColor: "gray",
                   marginBottom: 3,
                 }}
-                onClick={() => setChooseProduct(child.id)}
+                onClick={() => {
+                  setChooseProduct(child.id);
+                  setMaxQuantity(child.quantity);
+                  setQuantity(1);
+                }}
               >
                 {child.color}
               </Button>
@@ -125,14 +140,16 @@ function ProductDetail() {
               variant="outlined"
               sx={{ borderColor: "#306c6c", color: "#306c6c" }}
               color="success"
-              disabled={disabled}
+              disabled={disabledDecrease}
             >
               -
             </Button>
             <InputBase
               onChange={() => {
                 if (quantityRef.current.value !== "") {
-                  setQuantity(parseInt(quantityRef.current.value));
+                  if (quantityRef.current.value <= maxQuantity) {
+                    setQuantity(parseInt(quantityRef.current.value));
+                  }
                 } else setQuantity(quantityRef.current.value);
               }}
               inputRef={quantityRef}
@@ -150,10 +167,12 @@ function ProductDetail() {
               variant="outlined"
               sx={{ borderColor: "#306c6c", color: "#306c6c" }}
               color="success"
+              disabled={disabledIncrease}
             >
               +
             </Button>
           </ButtonGroup>
+          <Box>{maxQuantity} sản phẩm có sẵn</Box>
           <Box
             sx={{
               marginTop: 5,

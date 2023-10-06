@@ -42,7 +42,7 @@ function ProductItem({ item }) {
         <CardMedia
           component={"img"}
           height={250}
-          image={item.image}
+          image={require("../../../assets/images/XTG_1.png")}
           alt=""
           ref={containerRef}
         />

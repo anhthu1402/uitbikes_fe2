@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import ImageSlider from "../../components/ImageSlider/ImageSlider";
@@ -17,13 +17,20 @@ function Home() {
   const handleChangeType = (val) => {
     setType(val);
     sessionStorage.setItem("type", JSON.stringify(val));
-  };
-  useEffect(() => {
     axios
-      .get("http://localhost:9090/api/products/details/type/" + type)
+      .get("http://localhost:9090/api/products/details/type/" + val)
       .then((response) => {
         setData(response.data);
       });
+  };
+  useEffect(() => {
+    if (data.length === 0) {
+      axios
+        .get("http://localhost:9090/api/products/details/type/" + type)
+        .then((response) => {
+          setData(response.data);
+        });
+    }
   }, [type, data]);
   return (
     <div>
@@ -31,6 +38,7 @@ function Home() {
         <ImageSlider />
       </Box>
       <TypeList handleChangeType={handleChangeType} />
+
       <Box sx={{ flexGrow: 1 }}>
         <Grid
           container
@@ -41,7 +49,7 @@ function Home() {
           {data &&
             data.map((child, index) => (
               <Grid item xs={2} sm={4} md={4} key={index} marginBottom={2}>
-                <Link to={"/product-detail/" + child.p_id} state={child}>
+                <Link to={"/product-detail/" + child.name} state={child}>
                   <ProductItem item={child} key={index} />
                 </Link>
               </Grid>

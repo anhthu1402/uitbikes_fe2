@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../../assets/images/uit_bikes_logo.svg";
 import {
-  AppBar,
   Avatar,
   Badge,
   Box,
@@ -109,15 +108,17 @@ function Navigation(props) {
                     alignItems: "center",
                   }}
                 >
-                  <Badge
-                    badgeContent={count}
-                    color="primary"
-                    sx={{ marginRight: 3 }}
-                  >
-                    <ShoppingCart
-                      sx={{ color: "#306c6c", cursor: "pointer" }}
-                    />
-                  </Badge>
+                  <Link to={"cart"}>
+                    <Badge
+                      badgeContent={count}
+                      color="primary"
+                      sx={{ marginRight: 3 }}
+                    >
+                      <ShoppingCart
+                        sx={{ color: "#306c6c", cursor: "pointer" }}
+                      />
+                    </Badge>
+                  </Link>
                   <NotificationsRounded
                     sx={{ color: "#306c6c", cursor: "pointer", marginRight: 3 }}
                   />
