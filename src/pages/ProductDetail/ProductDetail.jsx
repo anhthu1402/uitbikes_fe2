@@ -8,14 +8,21 @@ import {
   ButtonGroup,
   Typography,
   InputBase,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./ProductDetail.css";
+import { currency_format } from "../../service";
 
 function ProductDetail() {
   const location = useLocation();
+  const auth = false;
   const product = location.state;
   const [productDetail, setProductDetail] = useState([]);
   const [detail, setDetail] = useState([]);
@@ -63,14 +70,28 @@ function ProductDetail() {
     let q = quantity - 1;
     setQuantity(q);
   };
+  const [openDialog, setOpenDialog] = useState(false);
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
+  const handleAddToCart = () => {
+    if (auth) {
+    } else {
+      setOpenDialog(true);
+    }
+  };
   return (
     <Box sx={{ flexGrow: 1, marginTop: 12 }}>
       <Grid container spacing={{ xs: 1, md: 4 }} columns={{ xs: 4, md: 12 }}>
         <Grid item xs={12} sm={6} md={6}>
           <Card>
             <CardMedia
+              sx={{ maxHeight: 400, minHeight: 400 }}
               component={"img"}
-              image={require("../../assets/images/XTG_1.png")}
+              image={image}
               alt=""
             />
             <CardContent
@@ -92,7 +113,7 @@ function ProductDetail() {
                     marginLeft: 8,
                   }}
                 >
-                  {price} VNĐ
+                  {currency_format(price)} VNĐ
                 </span>
               </Typography>
             </CardContent>
@@ -182,6 +203,7 @@ function ProductDetail() {
             }}
           >
             <Button
+              onClick={handleAddToCart}
               variant="contained"
               sx={{
                 backgroundColor: "#306c6c",
@@ -222,6 +244,25 @@ function ProductDetail() {
         <h2>Mô tả</h2>
         <p>{product.describe}</p>
       </Box>
+      <Dialog
+        open={openDialog}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Thông báo"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Để sau</Button>
+          <Button onClick={handleClose} autoFocus>
+            Đăng nhập
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

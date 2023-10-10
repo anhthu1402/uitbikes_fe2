@@ -38,6 +38,48 @@ function Footer() {
                 <b>Điện thoại: </b>1234567890
               </p>
             </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: 180,
+              }}
+            >
+              <Link to={"http://localhost:3000"} target="_blank">
+                <img
+                  title="Template 1"
+                  src={require("../../assets/images/github.png")}
+                  alt=""
+                  width={30}
+                />
+              </Link>
+              <Link to={"http://localhost:3000"} target="_blank">
+                <img
+                  title="Template 2"
+                  src={require("../../assets/images/github.png")}
+                  alt=""
+                  width={30}
+                />
+              </Link>
+              <Link to={"http://localhost:3000"} target="_blank">
+                <img
+                  title="Template 3"
+                  src={require("../../assets/images/github.png")}
+                  alt=""
+                  width={30}
+                />
+              </Link>
+              <Link to={"http://localhost:3000"} target="_blank">
+                <img
+                  title="Admin"
+                  src={require("../../assets/images/github.png")}
+                  alt=""
+                  width={30}
+                />
+              </Link>
+            </Box>
           </div>
         </Grid>
         <Grid
@@ -112,48 +154,6 @@ function Footer() {
         }}
       />
       <Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: 180,
-          }}
-        >
-          <Link to={"http://localhost:3000"} target="_blank">
-            <img
-              title="Template 1"
-              src={require("../../assets/images/github.png")}
-              alt=""
-              width={30}
-            />
-          </Link>
-          <Link to={"http://localhost:3000"} target="_blank">
-            <img
-              title="Template 2"
-              src={require("../../assets/images/github.png")}
-              alt=""
-              width={30}
-            />
-          </Link>
-          <Link to={"http://localhost:3000"} target="_blank">
-            <img
-              title="Template 3"
-              src={require("../../assets/images/github.png")}
-              alt=""
-              width={30}
-            />
-          </Link>
-          <Link to={"http://localhost:3000"} target="_blank">
-            <img
-              title="Admin"
-              src={require("../../assets/images/github.png")}
-              alt=""
-              width={30}
-            />
-          </Link>
-        </Box>
         <Box></Box>
       </Box>
     </Box>

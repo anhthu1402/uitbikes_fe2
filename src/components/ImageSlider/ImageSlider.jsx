@@ -3,7 +3,7 @@ import { MDBCarousel, MDBCarouselItem } from "mdb-react-ui-kit";
 
 function ImageSlider() {
   return (
-    <MDBCarousel showIndicators showControls>
+    <MDBCarousel showIndicators>
       <MDBCarouselItem
         className="d-block"
         width={"100%"}

@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useRef, useState } from "react";
+import { currency_format } from "../../../service";
 
 function ProductItem({ item }) {
   const [hover, setHover] = useState(false);
@@ -29,30 +30,41 @@ function ProductItem({ item }) {
           hover
             ? {
                 maxWidth: 345,
+                minWidth: 345,
                 borderRadius: 3,
                 opacity: "0.5",
                 transition: "linear 0.1s",
               }
             : {
                 maxWidth: 345,
+                minWidth: 345,
                 borderRadius: 3,
               }
         }
       >
         <CardMedia
+          sx={{ maxHeight: 250, minHeight: 250 }}
           component={"img"}
-          height={250}
-          image={require("../../../assets/images/XTG_1.png")}
+          image={item.image}
           alt=""
           ref={containerRef}
         />
         <CardContent
-          sx={{ backgroundColor: "#3c7474", color: "white", height: 130 }}
+          sx={{
+            backgroundColor: "#3c7474",
+            color: "white",
+            height: 130,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
         >
           <Typography gutterBottom variant="h5" component={"div"}>
             {item.name}
           </Typography>
-          <Typography variant="body1">{item.price} VNĐ</Typography>
+          <Typography variant="body1">
+            {currency_format(item.price)} VNĐ
+          </Typography>
         </CardContent>
       </Card>
       <Slide

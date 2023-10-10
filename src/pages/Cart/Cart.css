@@ -1,0 +1,6 @@
+.cartItem {
+  display: flex;
+}
+.cartItemImg {
+  object-fit: cover;
+}

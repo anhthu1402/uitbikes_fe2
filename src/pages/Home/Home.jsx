@@ -15,13 +15,13 @@ function Home() {
       : 0
   );
   const handleChangeType = (val) => {
-    setType(val);
-    sessionStorage.setItem("type", JSON.stringify(val));
     axios
       .get("http://localhost:9090/api/products/details/type/" + val)
       .then((response) => {
         setData(response.data);
       });
+    setType(val);
+    sessionStorage.setItem("type", JSON.stringify(val));
   };
   useEffect(() => {
     if (data.length === 0) {
