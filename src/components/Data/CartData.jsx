@@ -29,7 +29,7 @@ export const CartData = [
       id: 1,
       name: "Anh Thu",
     },
-    quantity: 2,
+    quantity: 1,
   },
   {
     id: 2,

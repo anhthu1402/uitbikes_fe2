@@ -122,18 +122,20 @@ function Navigation(props) {
                   <NotificationsRounded
                     sx={{ color: "#306c6c", cursor: "pointer", marginRight: 3 }}
                   />
-                  <Avatar
-                    sx={{
-                      color: "#306c6c",
-                      cursor: "pointer",
-                      width: 30,
-                      height: 30,
-                      marginRight: 3,
-                    }}
-                    title="Anh Thu"
-                    alt="Anh Thu"
-                    src="https://res.cloudinary.com/dpwehcnso/image/upload/v1695480885/uitbikes/uitbiker1_pwb3z9.png?fbclid=IwAR0wlDrmAZq-7ltfJ62phszK9Y-J98ly2em7OvIa5_pH2dSKdJDskZymumE"
-                  />
+                  <Link to={"profile"}>
+                    <Avatar
+                      sx={{
+                        color: "#306c6c",
+                        cursor: "pointer",
+                        width: 30,
+                        height: 30,
+                        marginRight: 3,
+                      }}
+                      title="Anh Thu"
+                      alt="Anh Thu"
+                      src="https://res.cloudinary.com/dpwehcnso/image/upload/v1695480885/uitbikes/uitbiker1_pwb3z9.png?fbclid=IwAR0wlDrmAZq-7ltfJ62phszK9Y-J98ly2em7OvIa5_pH2dSKdJDskZymumE"
+                    />
+                  </Link>
                   <ExitToApp sx={{ color: "#306c6c", cursor: "pointer" }} />
                 </Box>
               ) : (

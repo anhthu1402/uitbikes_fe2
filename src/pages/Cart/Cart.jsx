@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import EmptyCart from "../../assets/images/empty_cart.png";
 import { Box, Button, ButtonGroup, InputBase, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -10,17 +10,6 @@ import { currency_format } from "../../service";
 function Cart() {
   const auth = true;
   const [data, setData] = useState(CartData);
-  const quantityRef = useRef();
-  const [quantity, setQuantity] = useState(1);
-
-  const handleIncrease = () => {
-    let q = quantity + 1;
-    setQuantity(q);
-  };
-  const handleDecrease = () => {
-    let q = quantity - 1;
-    setQuantity(q);
-  };
   const columns = [
     {
       field: "image",
@@ -62,25 +51,16 @@ function Cart() {
         return (
           <ButtonGroup>
             <Button
-              onClick={() => handleDecrease()}
               variant="outlined"
               sx={{ borderColor: "#306c6c", color: "#306c6c" }}
               color="success"
+              disabled={params.row.quantity === 1 ? true : false}
             >
               -
             </Button>
             <InputBase
-              onChange={() => {
-                if (quantityRef.current.value !== "") {
-                  if (
-                    quantityRef.current.value <= params.row.product.quantity
-                  ) {
-                    setQuantity(parseInt(quantityRef.current.value));
-                  }
-                } else setQuantity(quantityRef.current.value);
-              }}
-              inputRef={quantityRef}
               value={params.row.quantity}
+              contentEditable={false}
               inputMode="numeric"
               sx={{
                 border: "1px solid #306c6c",
@@ -90,7 +70,6 @@ function Cart() {
               inputProps={{ style: { textAlign: "center" } }}
             />
             <Button
-              onClick={() => handleIncrease()}
               variant="outlined"
               sx={{ borderColor: "#306c6c", color: "#306c6c" }}
               color="success"
@@ -122,7 +101,6 @@ function Cart() {
       },
     },
   ];
-  const [cartId, setCartId] = useState([]);
   const [numberOfCart, setNumberOfCart] = useState(0);
   const [total, setTotal] = useState(0);
   const handleChooseCart = (array) => {

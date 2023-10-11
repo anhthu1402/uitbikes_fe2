@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from "./pages/Home/Home";
 import About from "./pages/About";
 import Cart from './pages//Cart/Cart';
-import Profile from './pages/Profile';
+import Profile from './pages/Profile/Profile';
 import Register from './pages/Register';
 import Signin from './pages/Signin';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
@@ -28,8 +28,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <Profile />
+        element: <Profile />,
       },
+
       {
         path: 'register',
         element: <Register />
