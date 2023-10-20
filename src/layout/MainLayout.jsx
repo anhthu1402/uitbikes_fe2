@@ -10,7 +10,11 @@ function MainLayout() {
       <Navigation />
       <div
         className="main-content"
-        style={{ marginTop: 81, marginBottom: 50, minHeight: "45vh" }}
+        style={{
+          marginTop: 81,
+          marginBottom: 50,
+          minHeight: "45vh",
+        }}
       >
         <Outlet />
       </div>

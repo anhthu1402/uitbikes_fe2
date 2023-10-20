@@ -86,7 +86,7 @@ function ProductDetail() {
   return (
     <Box sx={{ flexGrow: 1, marginTop: 12 }}>
       <Grid container spacing={{ xs: 1, md: 4 }} columns={{ xs: 4, md: 12 }}>
-        <Grid item xs={12} sm={6} md={6}>
+        <Grid item xs={12} sm={6} md={6} sx={{ marginBottom: 5 }}>
           <Card>
             <CardMedia
               sx={{ maxHeight: 400, minHeight: 400 }}
@@ -212,6 +212,7 @@ function ProductDetail() {
                 "&:hover": {
                   backgroundColor: "#306c60",
                 },
+                marginBottom: 5,
               }}
             >
               Thêm vào giỏ hàng
@@ -219,7 +220,7 @@ function ProductDetail() {
           </Box>
         </Grid>
       </Grid>
-      <Box sx={{ marginTop: 7 }}>
+      <Box>
         <h2>Thông tin chi tiết</h2>
         <table className="detailTable">
           <tr>

@@ -1,0 +1,10 @@
+@media screen and (min-width: 900px) {
+  .profile-page {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 900px) {
+  .profile-page {
+    width: 100%;
+  }
+}

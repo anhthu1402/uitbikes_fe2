@@ -14,3 +14,19 @@ export const formatDate = (day, month, year) => {
         }
     }
 }
+export const getEInvoiceStatus = (status) => {
+    switch (status) {
+        case 0: {
+            return "Chờ xác nhận";
+        }
+        case 1: {
+            return "Đang giao";
+        }
+        case 2: {
+            return "Đã giao";
+        }
+        default: {
+            return "Đã hủy";
+        }
+    }
+}

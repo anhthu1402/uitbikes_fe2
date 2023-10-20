@@ -29,11 +29,40 @@ function EditProfile() {
     <Box>
       <Grid
         container
-        columnSpacing={{ xs: 1, md: 12 }}
+        columnSpacing={{ xs: 1, md: 8 }}
         columns={{ xs: 6, md: 12 }}
-        sx={{ marginBottom: 5 }}
+        sx={{ marginBottom: 2 }}
       >
-        <Grid item xs={12} sm={8} md={8}>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={4}
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={{ xs: "center", md: "flex-start" }}
+          alignItems={"center"}
+        >
+          <Box>
+            <Badge
+              sx={{ cursor: "pointer" }}
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              badgeContent={
+                <Avatar sx={{ bgcolor: "black" }}>
+                  <EditRounded color="inherit" />
+                </Avatar>
+              }
+            >
+              <Avatar
+                sx={{ width: 180, height: 180 }}
+                src="https://ibighit.com/bts/images/bts/discography/love_yourself-answer/album-cover.jpg"
+              />
+            </Badge>
+            <h6 style={{ margin: "30px auto" }}>Ngày tham gia: 18/10/2023</h6>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={12} md={8}>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <TextField
               label="Tên đăng nhập"
@@ -57,8 +86,12 @@ function EditProfile() {
             />
             <TextField label="CCCD" fullWidth sx={{ marginBottom: 3 }} />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DatePicker"]}>
+              <DemoContainer
+                components={["DatePicker"]}
+                sx={{ marginBottom: 3 }}
+              >
                 <DatePicker
+                  sx={{ width: "100%" }}
                   label="Ngày sinh"
                   onChange={(e) => setDate(formatDate(e.$D, e.$M + 1, e.$y))}
                 />
@@ -66,36 +99,21 @@ function EditProfile() {
             </LocalizationProvider>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={4} md={4}>
-          <Badge
-            sx={{ cursor: "pointer" }}
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            badgeContent={
-              <Avatar sx={{ bgcolor: "black" }}>
-                <EditRounded color="inherit" />
-              </Avatar>
-            }
-          >
-            <Avatar
-              sx={{ width: 180, height: 180 }}
-              src="https://ibighit.com/bts/images/bts/discography/love_yourself-answer/album-cover.jpg"
-            />
-          </Badge>
-        </Grid>
       </Grid>
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: "#306c6c",
-          padding: "10px 20px",
-          "&:hover": {
-            backgroundColor: "#306c60",
-          },
-        }}
-      >
-        Lưu thay đổi
-      </Button>
+      <p style={{ textAlign: "center" }}>
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "#306c6c",
+            padding: "10px 20px",
+            "&:hover": {
+              backgroundColor: "#306c60",
+            },
+          }}
+        >
+          Lưu thay đổi
+        </Button>
+      </p>
     </Box>
   );
 }

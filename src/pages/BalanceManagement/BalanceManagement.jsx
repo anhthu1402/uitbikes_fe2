@@ -59,7 +59,7 @@ function BalanceManagement() {
           <h4 style={{ marginBottom: 20 }}>Lịch sử thanh toán</h4>
           <TableContainer
             component={Paper}
-            sx={{ maxHeight: 330, minWidth: 450 }}
+            sx={{ maxHeight: 330, minWidth: 450, marginBottom: 5 }}
           >
             <Table stickyHeader>
               <TableHead>
@@ -72,16 +72,12 @@ function BalanceManagement() {
               <TableBody>
                 {invoiceData &&
                   invoiceData.map((row) => (
-                    <StyledTableRow
-                      role="checkbox"
-                      key={row.invoice_id}
-                      tabIndex={-1}
-                    >
+                    <StyledTableRow role="checkbox" key={row.id} tabIndex={-1}>
                       <StyledTableCell component={"th"} scope="row">
                         {row.date}
                       </StyledTableCell>
                       <StyledTableCell>
-                        Thanh toán hóa đơn {row.invoice_id}
+                        Thanh toán hóa đơn {row.id}
                       </StyledTableCell>
                       <StyledTableCell>
                         {currency_format(row.total)} VNĐ

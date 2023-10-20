@@ -8,6 +8,7 @@ import Profile from './pages/Profile/Profile';
 import Register from './pages/Register';
 import Signin from './pages/Signin';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
+import Notification from './pages/Notification/Notification';
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,10 @@ const router = createBrowserRouter([
         path: 'profile',
         element: <Profile />,
       },
-
+      {
+        path: 'notification',
+        element: <Notification />,
+      },
       {
         path: 'register',
         element: <Register />
@@ -49,7 +53,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <div className='body'><RouterProvider router={router} /></div>
   );
 }
 
