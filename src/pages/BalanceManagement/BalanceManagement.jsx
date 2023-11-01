@@ -8,23 +8,30 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TablePagination,
   TableRow,
   tableCellClasses,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { currency_format } from "../../service";
-import { InvoiceData } from "../../components/Data/InvoiceData";
+import {
+  FormatDate,
+  FormatDateTime,
+  currency_format,
+  getChargeRequestStatus,
+  getPaymentHistory,
+} from "../../service";
 import styled from "@emotion/styled";
-import { ChargeRequestData } from "../../components/Data/ChargeRequestData";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "white",
     color: "black",
+    textAlign: "center",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    textAlign: "center",
   },
 }));
 
@@ -32,63 +39,104 @@ const StyledTableRow = styled(TableRow)(() => ({
   "&:nth-of-type(odd)": {
     backgroundColor: "whitesmoke",
     border: 0,
+    textAlign: "center",
   },
 }));
 
 function BalanceManagement() {
-  const [balance, setBalance] = useState(432000000);
-  const [invoiceData, setInvoiceData] = useState(InvoiceData);
-  const [chargeRequestData, setChargeRequestData] = useState(ChargeRequestData);
+  const { isAuthed, user } = useSelector((state) => state.auth);
+  const [balance, setBalance] = useState(user.customer.balance);
+  const [invoiceData, setInvoiceData] = useState([]);
+  const [chargeRequestData, setChargeRequestData] = useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:9090/api/invoices/customer/" +
+          user.customer.id +
+          "/status/-1"
+      )
+      .then((res) => {
+        setInvoiceData(res.data);
+      })
+      .catch((error) => console.log(error));
+    axios
+      .get("http://localhost:9090/api/requests/customer/" + user.customer.id)
+      .then((res) => {
+        setChargeRequestData(res.data);
+      })
+      .catch((error) => console.log(error));
+  }, [invoiceData, chargeRequestData]);
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <Grid
-        container
-        columnSpacing={{ xs: 1, md: 1 }}
-        columns={{ xs: 6, md: 12 }}
+      <h4>Thông tin số dư tài khoản</h4>
+      <Box
+        sx={{
+          marginBottom: 3,
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
       >
-        <Grid item xs={12} sm={5} md={5}>
-          <Box sx={{ marginBottom: 5 }}>
-            <h4>Thông tin số dư tài khoản</h4>
-            <p>Số dư tài khoản hiện tại:</p>
-            <h4 style={{ fontWeight: "bold", color: "#306c6c" }}>
-              {currency_format(balance)} VNĐ
-            </h4>
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={7} md={7}>
-          <h4 style={{ marginBottom: 20 }}>Lịch sử thanh toán</h4>
-          <TableContainer
-            component={Paper}
-            sx={{ maxHeight: 330, minWidth: 450, marginBottom: 5 }}
-          >
-            <Table stickyHeader>
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>Thời gian</StyledTableCell>
-                  <StyledTableCell>Mô tả</StyledTableCell>
-                  <StyledTableCell>Số tiền</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {invoiceData &&
-                  invoiceData.map((row) => (
-                    <StyledTableRow role="checkbox" key={row.id} tabIndex={-1}>
-                      <StyledTableCell component={"th"} scope="row">
-                        {row.date}
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        Thanh toán hóa đơn {row.id}
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        {currency_format(row.total)} VNĐ
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-      </Grid>
+        <Box>
+          <p>Số dư tài khoản hiện tại:</p>
+          <h4 style={{ fontWeight: "bold", color: "#306c6c" }}>
+            {currency_format(balance)} VNĐ
+          </h4>
+        </Box>
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "#306c6c",
+            "&:hover": {
+              backgroundColor: "#306c60",
+            },
+          }}
+        >
+          Nạp tiền
+        </Button>
+      </Box>
+      <Box>
+        <h4 style={{ marginBottom: 20 }}>Lịch sử thanh toán</h4>
+        <TableContainer
+          component={Paper}
+          sx={{ maxHeight: 330, minWidth: 450, marginBottom: 5 }}
+        >
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Thời gian</StyledTableCell>
+                <StyledTableCell>Mô tả</StyledTableCell>
+                <StyledTableCell>Số tiền</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {invoiceData &&
+                invoiceData.map(
+                  (row) =>
+                    row.status > 1 && (
+                      <StyledTableRow
+                        role="checkbox"
+                        key={row.id}
+                        tabIndex={-1}
+                      >
+                        <StyledTableCell component={"th"} scope="row">
+                          {FormatDateTime(row.date)}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {getPaymentHistory(row.status)} hóa đơn {row.id}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {row.status === 2 ? "-" : "+"}
+                          {currency_format(row.total)} VNĐ
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    )
+                )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
       <Box>
         <h4 style={{ marginBottom: 20 }}>Lịch sử nạp tiền</h4>
         <TableContainer
@@ -101,7 +149,7 @@ function BalanceManagement() {
                 <StyledTableCell>Mã nạp tiền</StyledTableCell>
                 <StyledTableCell>Ngày nạp</StyledTableCell>
                 <StyledTableCell>Số tài khoản</StyledTableCell>
-                <StyledTableCell>Sô tiền</StyledTableCell>
+                <StyledTableCell>Số tiền</StyledTableCell>
                 <StyledTableCell>Trạng thái</StyledTableCell>
               </TableRow>
             </TableHead>
@@ -112,12 +160,14 @@ function BalanceManagement() {
                     <StyledTableCell component={"th"} scope="row">
                       {row.id}
                     </StyledTableCell>
-                    <StyledTableCell>{row.date}</StyledTableCell>
-                    <StyledTableCell>{row.account_number}</StyledTableCell>
+                    <StyledTableCell>{FormatDate(row.date)}</StyledTableCell>
+                    <StyledTableCell>{row.accountNumber}</StyledTableCell>
                     <StyledTableCell>
                       {currency_format(row.money)} VNĐ
                     </StyledTableCell>
-                    <StyledTableCell>{row.status}</StyledTableCell>
+                    <StyledTableCell>
+                      {getChargeRequestStatus(row.status)}
+                    </StyledTableCell>
                   </StyledTableRow>
                 ))}
             </TableBody>

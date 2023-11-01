@@ -1,0 +1,51 @@
+.noti-item {
+  max-width: 350px !important;
+  min-width: 350px !important;
+  border-radius: 15px !important;
+  max-height: 430px !important;
+  min-height: 430px !important;
+}
+.noti-item-content {
+  text-align: center !important;
+}
+@media screen and (max-width: 756px) {
+  .noti-item {
+    max-width: 280px !important;
+    min-width: 280px !important;
+    max-height: 343px !important;
+    min-height: 343px !important;
+  }
+  .noti-item-image {
+    max-height: 150px !important;
+    min-height: 150px !important;
+  }
+  .noti-status {
+    font-size: 18px !important;
+  }
+  .noti-noti {
+    font-size: 12px !important;
+  }
+}
+@media screen and (max-width: 309px) {
+  .noti-item {
+    max-width: 200px !important;
+    min-width: 200px !important;
+    max-height: 250px !important;
+    min-height: 250px !important;
+  }
+  .noti-item-image {
+    max-height: 80px !important;
+    min-height: 80px !important;
+    min-width: 100px !important;
+    max-width: 100px;
+  }
+  .noti-date {
+    font-size: 13px !important;
+  }
+  .noti-status {
+    font-size: 15px !important;
+  }
+  .noti-noti {
+    font-size: 11px !important;
+  }
+}

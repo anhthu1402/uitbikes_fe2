@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { currency_format } from "../../../service";
+import "./ProductItem.css";
 
 function ProductItem({ item }) {
   const [hover, setHover] = useState(false);
@@ -26,30 +27,26 @@ function ProductItem({ item }) {
       }}
     >
       <Card
+        className="product-item"
         sx={
           hover
             ? {
-                maxWidth: 345,
-                minWidth: 345,
-                borderRadius: 3,
                 opacity: "0.5",
                 transition: "linear 0.1s",
               }
-            : {
-                maxWidth: 345,
-                minWidth: 345,
-                borderRadius: 3,
-              }
+            : {}
         }
       >
         <CardMedia
-          sx={{ maxHeight: 250, minHeight: 250 }}
+          className="product-item-image"
+          sx={{ maxHeight: 250, minHeight: 250, objectFit: "contain" }}
           component={"img"}
           image={item.image}
           alt=""
           ref={containerRef}
         />
         <CardContent
+          className="product-item-content"
           sx={{
             backgroundColor: "#3c7474",
             color: "white",
@@ -59,7 +56,12 @@ function ProductItem({ item }) {
             justifyContent: "space-between",
           }}
         >
-          <Typography gutterBottom variant="h5" component={"div"}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component={"div"}
+            className="product-item-content-name"
+          >
             {item.name}
           </Typography>
           <Typography variant="body1">

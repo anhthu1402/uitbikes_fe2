@@ -52,7 +52,7 @@ function TypeList({ handleChangeType }) {
               }
             />
           </Button>
-          <p>{child.name}</p>
+          <p className="catName">{child.name}</p>
         </div>
       ))}
     </Box>

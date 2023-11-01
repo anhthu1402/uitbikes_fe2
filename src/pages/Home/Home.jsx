@@ -8,9 +8,9 @@ import axios from "axios";
 import TypeList from "../../components/TypeList";
 
 function Home() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [type, setType] = useState(
-    sessionStorage.getItem("type")
+    sessionStorage.getItem("type") != null
       ? JSON.parse(sessionStorage.getItem("type"))
       : 0
   );
@@ -24,7 +24,7 @@ function Home() {
     sessionStorage.setItem("type", JSON.stringify(val));
   };
   useEffect(() => {
-    if (data.length === 0) {
+    if (data == null) {
       axios
         .get("http://localhost:9090/api/products/details/type/" + type)
         .then((response) => {
@@ -42,9 +42,8 @@ function Home() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid
           container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-          justifyContent={"space-between"}
+          spacing={{ xs: 2, md: 4 }}
+          columns={{ xs: 2, sm: 8, md: 8, lg: 12 }}
         >
           {data &&
             data.map((child, index) => (

@@ -9,13 +9,34 @@ import {
   Paper,
   Popper,
 } from "@mui/material";
-import React, { useRef, useState } from "react";
-import { InvoiceData } from "../../components/Data/InvoiceData";
+import React, { useEffect, useRef, useState } from "react";
 import EInvoiceItem from "../../components/Item/EInvoice/EInvoiceItem";
 import { ArrowDropDownIcon } from "@mui/x-date-pickers";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 function EInvoice() {
-  const [data, setData] = useState(InvoiceData);
+  const user = useSelector((state) => state.auth.user);
+  const [data, setData] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState({
+    status: -1,
+    value: "Tất cả",
+  });
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:9090/api/invoices/customer/" +
+          user.customer.id +
+          "/status/" +
+          selectedIndex.status
+      )
+      .then((response) => {
+        setData(response.data.reverse());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [data, selectedIndex]);
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const options = [
@@ -40,7 +61,6 @@ function EInvoice() {
       value: "Đã hủy",
     },
   ];
-  const [selectedIndex, setSelectedIndex] = useState("Tất cả");
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setOpen(false);
@@ -71,7 +91,7 @@ function EInvoice() {
               },
             }}
           >
-            {selectedIndex}
+            {selectedIndex.value}
           </Button>
           <Button
             sx={{
@@ -120,9 +140,7 @@ function EInvoice() {
                           color: "#306c6c",
                         }}
                         selected={child.value === selectedIndex}
-                        onClick={(event) =>
-                          handleMenuItemClick(event, child.value)
-                        }
+                        onClick={(event) => handleMenuItemClick(event, child)}
                       >
                         {child.value}
                       </MenuItem>

@@ -1,12 +1,60 @@
-import { Button, Grid, TextField } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Grid,
+  TextField,
+} from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { formatDate } from "../../service";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 function ChargeRequest() {
-  const [date, setDate] = useState("");
+  const user = useSelector((state) => state.auth.user);
+  const [date, setDate] = useState(null);
+  const moneyRef = useRef();
+  const accountNumberRef = useRef();
+  const [openDialog, setOpenDialog] = useState(false);
+  const handleOpenDialog = () => {
+    setOpenDialog(!openDialog);
+  };
+  const handleReset = () => {
+    if (moneyRef.current) {
+      moneyRef.current.value = null;
+    }
+    if (accountNumberRef.current) {
+      accountNumberRef.current.value = null;
+    }
+    setDate(null);
+  };
+  const handleRequest = () => {
+    const money = moneyRef.current.value;
+    const accountNumber = accountNumberRef.current.value;
+    if (!money || !accountNumber || !date) {
+      alert("Vui lòng điền đầy đủ thông tin.");
+    }
+    const request = {
+      customer: user.customer,
+      date: date,
+      money: money,
+      accountNumber: accountNumber,
+    };
+    axios
+      .post("http://localhost:9090/api/requests", request)
+      .then((response) => {
+        console.log(response.data);
+        handleOpenDialog();
+        handleReset();
+      })
+      .catch((error) => console.log(error));
+  };
   return (
     <div>
       <h2>Nạp tiền qua MOMO</h2>
@@ -24,6 +72,7 @@ function ChargeRequest() {
         <Grid item xs={12} sm={6} md={6}>
           <div style={{ textAlign: "center" }}>
             <img
+              style={{ objectFit: "contain" }}
               width={300}
               src="https://res.cloudinary.com/dpwehcnso/image/upload/v1697043439/uitbikes/momo2_riu6sp.png?fbclid=IwAR1G31BaMzRSz9oGLHketHjUqVB8tLkuw0YykcZyekr2f4cXd2zz6fIKGgw"
               alt=""
@@ -38,6 +87,7 @@ function ChargeRequest() {
                 sx={{ marginBottom: 3 }}
               >
                 <DatePicker
+                  value={date}
                   sx={{ width: "100%" }}
                   label="Ngày nạp tiền"
                   onChange={(e) => setDate(formatDate(e.$D, e.$M + 1, e.$y))}
@@ -48,9 +98,16 @@ function ChargeRequest() {
               label="Số tài khoản"
               fullWidth
               sx={{ marginBottom: 3 }}
+              inputRef={accountNumberRef}
             />
-            <TextField label="Số tiền" fullWidth sx={{ marginBottom: 3 }} />
+            <TextField
+              label="Số tiền"
+              fullWidth
+              sx={{ marginBottom: 3 }}
+              inputRef={moneyRef}
+            />
             <Button
+              onClick={handleRequest}
               variant="contained"
               sx={{
                 backgroundColor: "#306c6c",
@@ -65,6 +122,25 @@ function ChargeRequest() {
           </div>
         </Grid>
       </Grid>
+      <Dialog
+        open={openDialog}
+        onClose={handleOpenDialog}
+        fullWidth
+        maxWidth="xs"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Thông báo"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Gửi thông tin nạp tiền thành công. Vui lòng chờ quản trị viên xác
+            nhận yêu cầu.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleOpenDialog}>Đóng</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

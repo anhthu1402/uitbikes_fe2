@@ -5,10 +5,13 @@ import Home from "./pages/Home/Home";
 import About from "./pages/About";
 import Cart from './pages//Cart/Cart';
 import Profile from './pages/Profile/Profile';
-import Register from './pages/Register';
-import Signin from './pages/Signin';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Notification from './pages/Notification/Notification';
+import Signin from './pages/Signin/Signin';
+import Register from "./pages/Register/Register"
+import { Provider } from 'react-redux';
+import store from './store/store';
+import ChargeRequest from './pages/Charge Request/ChargeRequest';
 
 const router = createBrowserRouter([
   {
@@ -53,7 +56,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className='body'><RouterProvider router={router} /></div>
+    <div className='body'>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </div>
   );
 }
 

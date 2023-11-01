@@ -1,3 +1,6 @@
+.css-cyxlny-MuiPaper-root-MuiDialog-paper {
+  border-radius: 20px !important;
+}
 @media screen and (max-width: 820px) {
   .searchBarInputDesktop {
     width: 200px !important;

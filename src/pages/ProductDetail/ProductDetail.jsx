@@ -16,13 +16,15 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./ProductDetail.css";
 import { currency_format } from "../../service";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../store/auth";
 
 function ProductDetail() {
   const location = useLocation();
-  const auth = false;
+  const { isAuthed, user } = useSelector((state) => state.auth);
   const product = location.state;
   const [productDetail, setProductDetail] = useState([]);
   const [detail, setDetail] = useState([]);
@@ -70,26 +72,78 @@ function ProductDetail() {
     let q = quantity - 1;
     setQuantity(q);
   };
-  const [openDialog, setOpenDialog] = useState(false);
-  const handleClickOpen = () => {
-    setOpenDialog(true);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(!open);
   };
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
+
+  const dispatch = useDispatch();
+
   const handleAddToCart = () => {
-    if (auth) {
-    } else {
-      setOpenDialog(true);
-    }
+    axios
+      .get(
+        "http://localhost:9090/api/carts/customer/" +
+          user.customer.id +
+          "/product/" +
+          chooseProduct
+      )
+      .then((response) => {
+        if (response.data.id === undefined) {
+          const request = {
+            quantity: quantity,
+          };
+          axios
+            .post(
+              "http://localhost:9090/api/carts/customer/" +
+                user.customer.id +
+                "/product/" +
+                chooseProduct,
+              request
+            )
+            .then((res) => {
+              console.log(res.data);
+              handleOpen();
+              axios
+                .get(
+                  "http://localhost:9090/api/carts/customer/" + user.customer.id
+                )
+                .then((result) => {
+                  dispatch(authActions.updateCartNumber(result.data.length));
+                });
+            })
+            .catch((error) => console.log(error));
+        } else {
+          var totalQuantity = quantity + response.data.quantity;
+          axios
+            .put(
+              "http://localhost:9090/api/carts/" +
+                response.data.id +
+                "/quantity/" +
+                totalQuantity
+            )
+            .then((res) => {
+              console.log(res.data);
+              handleOpen();
+              axios
+                .get(
+                  "http://localhost:9090/api/carts/customer/" + user.customer.id
+                )
+                .then((result) => {
+                  dispatch(authActions.updateCartNumber(result.data.length));
+                });
+            })
+            .catch((error) => console.log(error));
+        }
+      });
   };
+
   return (
     <Box sx={{ flexGrow: 1, marginTop: 12 }}>
       <Grid container spacing={{ xs: 1, md: 4 }} columns={{ xs: 4, md: 12 }}>
         <Grid item xs={12} sm={6} md={6} sx={{ marginBottom: 5 }}>
           <Card>
             <CardMedia
-              sx={{ maxHeight: 400, minHeight: 400 }}
+              sx={{ maxHeight: 400, minHeight: 400, objectFit: "contain" }}
               component={"img"}
               image={image}
               alt=""
@@ -133,6 +187,7 @@ function ProductDetail() {
           <Grid container sx={{ marginTop: 3 }}>
             {detail.map((child, index) => (
               <Button
+                key={index}
                 variant={chooseProduct === child.id ? "contained" : "outlined"}
                 color="success"
                 sx={{
@@ -203,6 +258,7 @@ function ProductDetail() {
             }}
           >
             <Button
+              disabled={isAuthed ? false : true}
               onClick={handleAddToCart}
               variant="contained"
               sx={{
@@ -246,21 +302,22 @@ function ProductDetail() {
         <p>{product.describe}</p>
       </Box>
       <Dialog
-        open={openDialog}
-        onClose={handleClose}
+        open={open}
+        onClose={handleOpen}
+        fullWidth
+        maxWidth="xs"
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">{"Thông báo"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.
+            Thêm sản phẩm vào giỏ hàng thành công.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Để sau</Button>
-          <Button onClick={handleClose} autoFocus>
-            Đăng nhập
+          <Button onClick={handleOpen} autoFocus>
+            Đóng
           </Button>
         </DialogActions>
       </Dialog>

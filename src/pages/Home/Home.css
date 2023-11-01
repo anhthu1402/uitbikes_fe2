@@ -16,3 +16,52 @@
     color: white !important;
   }
 }
+@media screen and (max-width: 776px) {
+  .catBtnItem {
+    border: 1px solid transparent !important;
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 60px !important;
+    margin-bottom: 10px !important;
+  }
+  .iconCatBtn {
+    font-size: 30px !important;
+  }
+}
+@media screen and (max-width: 572px) {
+  .catBtnItem {
+    border: 1px solid transparent !important;
+    width: 40px !important;
+    height: 60px !important;
+    border-radius: 50px !important;
+    margin-bottom: 10px !important;
+  }
+  .iconCatBtn {
+    font-size: 20px !important;
+  }
+  .catName {
+    display: none;
+  }
+}
+@media screen and (max-width: 450px) {
+  .catBtnItem {
+    border: 1px solid transparent !important;
+    width: 10px !important;
+    height: 60px !important;
+    border-radius: 50px !important;
+    margin-bottom: 10px !important;
+  }
+  .iconCatBtn {
+    font-size: 15px !important;
+  }
+}
+@media screen and (max-width: 380px) {
+  .css-1q2nb77-MuiButtonBase-root-MuiButton-root,
+  .css-1s7393q-MuiButtonBase-root-MuiButton-root {
+    min-width: 40px !important;
+    height: 40px !important;
+  }
+  .iconCatBtn {
+    font-size: 15px !important;
+  }
+}

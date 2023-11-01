@@ -2,5 +2,8 @@
   display: flex;
 }
 .cartItemImg {
-  object-fit: cover;
+  object-fit: contain;
+}
+.css-levciy-MuiTablePagination-displayedRows {
+  margin: 0 !important;
 }
