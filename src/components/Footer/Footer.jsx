@@ -98,16 +98,16 @@ function Footer() {
             <h5 style={{ marginBottom: 15 }}>VỀ CHÚNG TÔI</h5>
             <Box>
               <p>
-                <a href="#">Điều khoản sử dụng</a>
+                <Link to={"/about"}>Giới thiệu</Link>
               </p>
               <p>
-                <a href="#">Quy chế hoạt động</a>
+                <Link>Quy chế hoạt động</Link>
               </p>
               <p>
-                <a href="#">Trung tâm khách hàng</a>
+                <Link>Trung tâm khách hàng</Link>
               </p>
               <p>
-                <a href="#">Hỏi đáp (FAQ)</a>
+                <Link>Hỏi đáp (FAQ)</Link>
               </p>
             </Box>
           </div>
@@ -136,10 +136,10 @@ function Footer() {
             </Box>
             <Box>
               <p>
-                <a href="#">Chính sách giải quyết khiếu nại</a>
+                <Link>Chính sách giải quyết khiếu nại</Link>
               </p>
               <p>
-                <a href="#">Chính sách bảo mật</a>
+                <Link>Chính sách bảo mật</Link>
               </p>
             </Box>
           </div>
