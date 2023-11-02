@@ -19,7 +19,8 @@ function Home() {
       .get("http://localhost:9090/api/products/details/type/" + val)
       .then((response) => {
         setData(response.data);
-      });
+      })
+      .catch((error) => console.log(error));
     setType(val);
     sessionStorage.setItem("type", JSON.stringify(val));
   };
@@ -29,7 +30,8 @@ function Home() {
         .get("http://localhost:9090/api/products/details/type/" + type)
         .then((response) => {
           setData(response.data);
-        });
+        })
+        .catch((error) => console.log(error));
     }
   }, [type, data]);
   return (

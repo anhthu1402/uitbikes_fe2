@@ -122,7 +122,7 @@ function EditProfile() {
   const cccdRef = useRef();
   const [gender, setGender] = useState(customer.gender);
   const [date, setDate] = useState(
-    customer.date !== undefined ? dayjs(FormatDate(customer.date)) : ""
+    customer.date === null ? undefined : dayjs(FormatDate(customer.date))
   );
   const handleChangeGender = (event) => {
     setGender(event.target.value);

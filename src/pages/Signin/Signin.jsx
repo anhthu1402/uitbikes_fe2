@@ -17,7 +17,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 
-function Signin({ handleCloseSignin, handleOpenRegister }) {
+function Signin({ handleCloseSignin, handleOpenRegister, handleOpenForgotPw }) {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -133,7 +133,7 @@ function Signin({ handleCloseSignin, handleOpenRegister }) {
               alignItems: "center",
             }}
           >
-            <Link to={""}>Quên mật khẩu?</Link>
+            <Link onClick={handleOpenForgotPw}>Quên mật khẩu?</Link>
             <p style={{ marginTop: "8px" }}>
               Chưa có tài khoản?{" "}
               <Link onClick={handleOpenRegister}>Đăng kí ngay</Link>

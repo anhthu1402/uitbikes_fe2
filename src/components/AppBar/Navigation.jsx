@@ -35,6 +35,7 @@ import Signin from "../../pages/Signin/Signin";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
 import Register from "../../pages/Register/Register";
+import ForgotPassword from "../../pages/ForgotPassword/ForgotPassword";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -62,6 +63,10 @@ function Navigation(props) {
   const handleOpenRegister = () => {
     setOpenRegister(!openRegister);
   };
+  const [openForgotPw, setOpenForgotPw] = useState(false);
+  const handleOpenForgotPw = () => {
+    setOpenForgotPw(!openForgotPw);
+  };
 
   const handleClickOpenSignin = () => {
     setOpenSignin(true);
@@ -69,6 +74,8 @@ function Navigation(props) {
 
   const handleCloseSignin = () => {
     setOpenSignin(false);
+    setOpenForgotPw(false);
+    setOpenRegister(false);
   };
 
   const [openLogout, setOpenLogout] = useState(false);
@@ -304,10 +311,13 @@ function Navigation(props) {
                 handleCloseSignin={handleCloseSignin}
                 handleOpenRegister={handleOpenRegister}
               />
+            ) : openForgotPw ? (
+              <ForgotPassword />
             ) : (
               <Signin
                 handleCloseSignin={handleCloseSignin}
                 handleOpenRegister={handleOpenRegister}
+                handleOpenForgotPw={handleOpenForgotPw}
               />
             )}
           </Grid>

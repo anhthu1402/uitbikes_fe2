@@ -34,7 +34,8 @@ function ProductDetail() {
       .then((response) => {
         setProductDetail(response.data);
         setDetail(response.data.detail);
-      });
+      })
+      .catch((error) => console.log(error));
   }, [product, productDetail]);
   const [quantity, setQuantity] = useState(1);
   const [chooseProduct, setChooseProduct] = useState(product.id);
@@ -109,7 +110,8 @@ function ProductDetail() {
                 )
                 .then((result) => {
                   dispatch(authActions.updateCartNumber(result.data.length));
-                });
+                })
+                .catch((error) => console.log(error));
             })
             .catch((error) => console.log(error));
         } else {
@@ -130,7 +132,8 @@ function ProductDetail() {
                 )
                 .then((result) => {
                   dispatch(authActions.updateCartNumber(result.data.length));
-                });
+                })
+                .catch((error) => console.log(error));
             })
             .catch((error) => console.log(error));
         }
