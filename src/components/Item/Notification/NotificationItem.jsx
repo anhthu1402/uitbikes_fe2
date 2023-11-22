@@ -8,11 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import "./NotificationItem.css";
-import {
-  FormatDate,
-  FormatDateTime,
-  notiEInvoiceStatus,
-} from "../../../service";
+import { FormatDateTime, notiEInvoiceStatus } from "../../../service";
 
 function NotificationItem({ item }) {
   const noti = notiEInvoiceStatus(item.id, item.status);
@@ -49,6 +45,7 @@ function NotificationItem({ item }) {
             (child, index) =>
               index < 1 && (
                 <CardMedia
+                  key={index}
                   className="noti-item-image"
                   sx={{ maxHeight: 250, minHeight: 250, objectFit: "contain" }}
                   component={"img"}

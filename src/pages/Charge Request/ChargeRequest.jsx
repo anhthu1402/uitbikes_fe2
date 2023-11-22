@@ -88,9 +88,10 @@ function ChargeRequest() {
               >
                 <DatePicker
                   value={date}
+                  format="DD/MM/YYYY"
                   sx={{ width: "100%" }}
                   label="Ngày nạp tiền"
-                  onChange={(e) => setDate(formatDate(e.$D, e.$M + 1, e.$y))}
+                  onChange={(e) => setDate(e)}
                 />
               </DemoContainer>
             </LocalizationProvider>

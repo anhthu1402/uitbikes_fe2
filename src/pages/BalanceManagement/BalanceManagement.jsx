@@ -20,8 +20,9 @@ import {
   getPaymentHistory,
 } from "../../service";
 import styled from "@emotion/styled";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { authActions } from "../../store/auth";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -43,8 +44,9 @@ const StyledTableRow = styled(TableRow)(() => ({
   },
 }));
 
-function BalanceManagement() {
+function BalanceManagement({ hanldeSetPage }) {
   const { isAuthed, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [balance, setBalance] = useState(user.customer.balance);
   const [invoiceData, setInvoiceData] = useState([]);
   const [chargeRequestData, setChargeRequestData] = useState([]);
@@ -56,16 +58,28 @@ function BalanceManagement() {
           "/status/-1"
       )
       .then((res) => {
-        setInvoiceData(res.data);
+        setInvoiceData(res.data.reverse());
+        axios
+          .get("http://localhost:9090/api/accounts/" + user.username)
+          .then((response) => {
+            dispatch(authActions.setAuth(response.data));
+            setBalance(response.data.customer.balance);
+          });
       })
       .catch((error) => console.log(error));
     axios
       .get("http://localhost:9090/api/requests/customer/" + user.customer.id)
       .then((res) => {
-        setChargeRequestData(res.data);
+        setChargeRequestData(res.data.reverse());
+        axios
+          .get("http://localhost:9090/api/accounts/" + user.username)
+          .then((response) => {
+            dispatch(authActions.setAuth(response.data));
+            setBalance(response.data.customer.balance);
+          });
       })
       .catch((error) => console.log(error));
-  }, [invoiceData, chargeRequestData]);
+  }, [invoiceData, chargeRequestData, user, balance]);
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <h4>Thông tin số dư tài khoản</h4>
@@ -92,6 +106,7 @@ function BalanceManagement() {
               backgroundColor: "#306c60",
             },
           }}
+          onClick={() => hanldeSetPage("charge-request")}
         >
           Nạp tiền
         </Button>

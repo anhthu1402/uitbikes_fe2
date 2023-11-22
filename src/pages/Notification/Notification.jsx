@@ -20,7 +20,7 @@ function Notification() {
       .catch((error) => {
         console.log(error);
       });
-  }, [invoiceData]);
+  }, [invoiceData, user]);
   return (
     <Box sx={{ marginTop: "90px", flexGrow: 1 }}>
       <Grid

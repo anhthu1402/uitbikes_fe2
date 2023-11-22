@@ -1,8 +1,32 @@
-import { Box, Button, Grid, Paper } from "@mui/material";
-import React from "react";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Grid,
+  Paper,
+} from "@mui/material";
+import React, { useState } from "react";
 import { currency_format, getEInvoiceStatus } from "../../../service";
+import axios from "axios";
 
 function EInvoiceItem({ child }) {
+  const [openCancel, setOpenCancel] = useState(false);
+  const handleSetCancel = () => {
+    setOpenCancel(!openCancel);
+  };
+  const handleCancelInvoice = (id) => {
+    setOpenCancel(false);
+    axios
+      .put("http://localhost:9090/api/invoices/" + id + "/status/3")
+      .then((res) => {
+        alert("Hủy hóa đơn " + child.id + " thành công.");
+      })
+      .catch((error) => console.log(error));
+  };
   return (
     <Box>
       <Grid
@@ -29,6 +53,7 @@ function EInvoiceItem({ child }) {
             <Button
               variant="contained"
               sx={{ marginLeft: 2, textTransform: "none" }}
+              onClick={() => handleSetCancel()}
             >
               Hủy
             </Button>
@@ -114,6 +139,25 @@ function EInvoiceItem({ child }) {
           {currency_format(child.total)} VNĐ
         </span>
       </p>
+      <Dialog
+        open={openCancel}
+        onClose={handleSetCancel}
+        fullWidth
+        maxWidth="xs"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Thông báo"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Bạn có muốn hủy hóa đơn này?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSetCancel}>Không</Button>
+          <Button onClick={() => handleCancelInvoice(child.id)}>Hủy</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

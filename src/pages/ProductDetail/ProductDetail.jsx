@@ -36,7 +36,7 @@ function ProductDetail() {
         setDetail(response.data.detail);
       })
       .catch((error) => console.log(error));
-  }, [product, productDetail]);
+  }, [product, productDetail, detail]);
   const [quantity, setQuantity] = useState(1);
   const [chooseProduct, setChooseProduct] = useState(product.id);
   const [maxQuantity, setMaxQuantity] = useState(product.quantity);

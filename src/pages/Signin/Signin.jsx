@@ -72,7 +72,6 @@ function Signin({ handleCloseSignin, handleOpenRegister, handleOpenForgotPw }) {
             fullWidth
             className="email"
             inputRef={emailRef}
-            autoComplete="true"
           />
           <FormControl
             variant="standard"

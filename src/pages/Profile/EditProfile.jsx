@@ -122,7 +122,7 @@ function EditProfile() {
   const cccdRef = useRef();
   const [gender, setGender] = useState(customer.gender);
   const [date, setDate] = useState(
-    customer.date === null ? undefined : dayjs(FormatDate(customer.date))
+    customer.date === null ? undefined : dayjs(customer.date)
   );
   const handleChangeGender = (event) => {
     setGender(event.target.value);
@@ -147,17 +147,13 @@ function EditProfile() {
       gender: gender,
     };
     axios
-      .put("http://localhost:9090/api/customers/" + customer.id, customerDetail)
+      .put(
+        "http://localhost:9090/api/customers/" + user.username,
+        customerDetail
+      )
       .then((response) => {
         console.log(response.data);
-        const account = {
-          username: user.username,
-          customer: response.data,
-          email: user.email,
-          isAdmin: user.isAdmin,
-          avatar: user.avatar,
-        };
-        dispatch(authActions.setAuth(account));
+        dispatch(authActions.setAuth(response.data));
         handleOpen();
       })
       .catch((error) => {
@@ -256,10 +252,11 @@ function EditProfile() {
                 sx={{ marginBottom: 3 }}
               >
                 <DatePicker
+                  format="DD/MM/YYYY"
                   value={date}
                   sx={{ width: "100%" }}
                   label="Ngày sinh"
-                  onChange={(e) => setDate(formatDate(e.$D, e.$M + 1, e.$y))}
+                  onChange={(e) => setDate(e)}
                 />
               </DemoContainer>
             </LocalizationProvider>

@@ -11,6 +11,7 @@ import Signin from './pages/Signin/Signin';
 import Register from "./pages/Register/Register"
 import { Provider } from 'react-redux';
 import store from './store/store';
+import SearchPage from './pages/Search/SearchPage';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
         path: 'product-detail/*',
         element: <ProductDetail />
       },
+      {
+        path: 'search',
+        element: <SearchPage />
+      }
     ]
   }
 ])

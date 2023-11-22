@@ -3,10 +3,11 @@ import { Outlet } from "react-router-dom";
 import Navigation from "../components/AppBar/Navigation";
 import { Container } from "@mui/material";
 import Footer from "../components/Footer/Footer";
+import SearchFilter from "../components/Search/SearchFilter";
 
 function MainLayout() {
   return (
-    <Container>
+    <Container sx={{ position: "relative" }}>
       <Navigation />
       <div
         className="main-content"
@@ -19,6 +20,7 @@ function MainLayout() {
         <Outlet />
       </div>
 
+      <SearchFilter />
       <div
         style={{
           marginTop: 40,

@@ -14,6 +14,7 @@ import EInvoiceItem from "../../components/Item/EInvoice/EInvoiceItem";
 import { ArrowDropDownIcon } from "@mui/x-date-pickers";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { optionsEInvoice } from "../../service";
 
 function EInvoice() {
   const user = useSelector((state) => state.auth.user);
@@ -36,31 +37,9 @@ function EInvoice() {
       .catch((error) => {
         console.log(error);
       });
-  }, [data, selectedIndex]);
+  }, [data, selectedIndex, user]);
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
-  const options = [
-    {
-      status: -1,
-      value: "Tất cả",
-    },
-    {
-      status: 0,
-      value: "Chờ xác nhận",
-    },
-    {
-      status: 1,
-      value: "Đang giao",
-    },
-    {
-      status: 2,
-      value: "Đã giao",
-    },
-    {
-      status: 3,
-      value: "Đã hủy",
-    },
-  ];
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setOpen(false);
@@ -72,7 +51,6 @@ function EInvoice() {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -133,7 +111,7 @@ function EInvoice() {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList id="split-button-menu" autoFocusItem>
-                    {options.map((child, index) => (
+                    {optionsEInvoice.map((child, index) => (
                       <MenuItem
                         key={child.status}
                         sx={{

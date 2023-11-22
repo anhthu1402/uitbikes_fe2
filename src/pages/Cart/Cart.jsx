@@ -33,7 +33,7 @@ function Cart() {
         dispatch(authActions.updateCartNumber(response.data.length));
       })
       .catch((error) => console.log(error));
-  }, [data]);
+  }, [data, user, dispatch]);
   const [openDelete, setOpenDelete] = useState(false);
   const handleOpenDelete = () => {
     setOpenDelete(!openDelete);
@@ -217,7 +217,6 @@ function Cart() {
     ) {
       handleOpenDischarge(false);
     } else {
-      // chưa xử lý trừ tiền vào tài khoản khách hàng
       const invoice = {
         total: total,
         customer: user.customer,
@@ -225,28 +224,39 @@ function Cart() {
       axios
         .post("http://localhost:9090/api/invoices", invoice)
         .then((response) => {
-          selectedRows.map((child) => {
-            axios
-              .put(
-                "http://localhost:9090/api/invoices/" +
-                  response.data.id +
-                  "/product/" +
-                  child.product.id +
-                  "/quantity/" +
-                  child.quantity
-              )
-              .then((res) => {
+          var newBalance = user.customer.balance - total;
+          axios
+            .put(
+              "http://localhost:9090/api/customers/" +
+                user.customer.id +
+                "/balance/" +
+                newBalance
+            )
+            .then((result) => {
+              selectedRows.map((child) => {
                 axios
-                  .delete("http://localhost:9090/api/carts/" + child.id)
-                  .then((result) => {
-                    console.log(result);
+                  .put(
+                    "http://localhost:9090/api/invoices/" +
+                      response.data.id +
+                      "/product/" +
+                      child.product.id +
+                      "/quantity/" +
+                      child.quantity
+                  )
+                  .then((res) => {
+                    axios
+                      .delete("http://localhost:9090/api/carts/" + child.id)
+                      .then((result) => {
+                        console.log(result);
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
                   })
-                  .catch((error) => {
-                    console.log(error);
-                  });
-              })
-              .catch((error) => console.log(error));
-          });
+                  .catch((error) => console.log(error));
+              });
+            })
+            .catch((error) => console.log(error));
         })
         .catch((error) => console.log(error));
     }
@@ -362,7 +372,11 @@ function Cart() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOpenDischarge}>Đóng</Button>
-          <Button onClick={() => navigate("/profile")}>{buttonDialog}</Button>
+          <Button>
+            <Link to={"/profile"} state={"cart"}>
+              {buttonDialog}
+            </Link>
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

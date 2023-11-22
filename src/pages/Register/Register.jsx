@@ -63,10 +63,10 @@ function Register({ handleCloseSignin, handleOpenRegister }) {
     if (!email || !password || !username) {
       setError("Vui lòng điền đầy đủ các thông tin!");
     }
-    if (checkUsername) {
+    if (checkUsername(username)) {
       setError("Tên đăng nhập này đã được sử dụng");
     }
-    if (checkEmail) {
+    if (checkEmail(email)) {
       setError("Email này đã được sử dụng");
     }
     if (password !== confirmPassword) {
@@ -110,7 +110,6 @@ function Register({ handleCloseSignin, handleOpenRegister }) {
             fullWidth
             className="email"
             inputRef={usernameRef}
-            autoComplete="true"
           />
           <TextField
             variant="standard"
@@ -118,7 +117,6 @@ function Register({ handleCloseSignin, handleOpenRegister }) {
             fullWidth
             className="email"
             inputRef={emailRef}
-            autoComplete="true"
             sx={{ margin: 2 }}
           />
           <FormControl variant="standard" fullWidth className="password">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Logo from "../../assets/images/uit_bikes_logo.svg";
 import {
   Avatar,
@@ -36,6 +36,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
 import Register from "../../pages/Register/Register";
 import ForgotPassword from "../../pages/ForgotPassword/ForgotPassword";
+import SearchFilterContext from "../../SearchFilterContext";
+import axios from "axios";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -94,6 +96,34 @@ function Navigation(props) {
     navigate("/");
   };
 
+  const searchFilter = useContext(SearchFilterContext);
+  const handleOpenSearchFilter = () => {
+    localStorage.setItem("openSearchFilter", !searchFilter.open);
+    searchFilter.setOpen(!searchFilter.open);
+  };
+
+  const searchRef = useRef();
+  const handleSearchInput = () => {
+    const searchInput = searchRef.current.value;
+    if (searchInput === "") {
+      alert("Vui lòng nhập từ khóa bạn cần tìm.");
+    }
+    axios
+      .get("http://localhost:9090/api/products/name/" + searchInput)
+      .then((response) => {
+        searchFilter.setResult(response.data);
+        localStorage.setItem("searchResult", JSON.stringify(response.data));
+        navigate("/search");
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const handleEnterSearchInput = (e) => {
+    if (e.key === "Enter") {
+      handleSearchInput();
+    }
+  };
+
   const menuDetail = (
     <Box
       sx={{
@@ -111,18 +141,26 @@ function Navigation(props) {
           display: "none",
         }}
       >
-        <Search sx={{ color: "#306c6c", cursor: "pointer" }} />
+        <div onClick={handleSearchInput}>
+          <Search sx={{ color: "#306c6c", cursor: "pointer" }} />
+        </div>
         <InputBase
           className="inputBase"
+          inputRef={searchRef}
+          onChange={(e) => {
+            searchRef.current.value = e.target.value;
+          }}
           sx={{
             color: "black",
             alignItems: "center",
             margin: "0 20px",
           }}
-          placeholder="Search.."
+          placeholder="Tìm kiếm ..."
           inputProps={{ "aria-label": "search" }}
         />
-        <TuneRounded sx={{ color: "#306c6c", cursor: "pointer" }} />
+        <div onClick={handleOpenSearchFilter}>
+          <TuneRounded sx={{ color: "#306c6c", cursor: "pointer" }} />
+        </div>
       </div>
       {isAuthed ? (
         <Box
@@ -231,21 +269,30 @@ function Navigation(props) {
                         justifyContent: "center",
                       }}
                     >
-                      <Search sx={{ color: "#306c6c", cursor: "pointer" }} />
+                      <div onClick={handleSearchInput}>
+                        <Search sx={{ color: "#306c6c", cursor: "pointer" }} />
+                      </div>
                       <InputBase
                         className="searchBarInputDesktop"
+                        onChange={(e) => {
+                          searchRef.current.value = e.target.value;
+                        }}
+                        onKeyDown={handleEnterSearchInput}
+                        inputRef={searchRef}
                         sx={{
                           color: "black",
                           alignItems: "center",
                           margin: "0 20px",
                           width: 300,
                         }}
-                        placeholder="Search.."
+                        placeholder="Tìm kiếm ..."
                         inputProps={{ "aria-label": "search" }}
                       />
-                      <TuneRounded
-                        sx={{ color: "#306c6c", cursor: "pointer" }}
-                      />
+                      <div onClick={handleOpenSearchFilter}>
+                        <TuneRounded
+                          sx={{ color: "#306c6c", cursor: "pointer" }}
+                        />
+                      </div>
                     </Box>
                   </Box>
                 </Box>
@@ -312,7 +359,7 @@ function Navigation(props) {
                 handleOpenRegister={handleOpenRegister}
               />
             ) : openForgotPw ? (
-              <ForgotPassword />
+              <ForgotPassword handleOpenForgotPw={handleOpenForgotPw} />
             ) : (
               <Signin
                 handleCloseSignin={handleCloseSignin}

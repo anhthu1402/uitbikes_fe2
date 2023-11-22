@@ -7,10 +7,15 @@ import BalanceManagement from "../BalanceManagement/BalanceManagement";
 import ChargeRequest from "../Charge Request/ChargeRequest";
 import EInvoice from "../EInvoice/EInvoice";
 import "./Profile.css";
+import { useLocation } from "react-router-dom";
 
 function Profile() {
-  const [page, setPage] = useState(<EditProfile />);
-  const [path, setPath] = useState("profile");
+  const location = useLocation();
+  const from = location.state != null ? location.state : "";
+  const [page, setPage] = useState(
+    from !== "" ? <ChargeRequest /> : <EditProfile />
+  );
+  const [path, setPath] = useState(from !== "" ? "charge-request" : "profile");
   const hanldeSetPage = (path) => {
     switch (path) {
       case "profile": {
@@ -24,7 +29,7 @@ function Profile() {
         break;
       }
       case "balance": {
-        setPage(<BalanceManagement />);
+        setPage(<BalanceManagement hanldeSetPage={hanldeSetPage} />);
         setPath(path);
         break;
       }

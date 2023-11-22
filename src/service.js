@@ -61,8 +61,7 @@ export const notiEInvoiceStatus = (invoiceId, status) => {
     }
 }
 export const FormatDate = (string) => {
-    return dayjs(string).format('DD/MM/YYYY');
-
+    return dayjs(new Date(string).toLocaleString()).format('DD/MM/YYYY');
 }
 
 export const FormatDateTime = (string) => {
@@ -90,3 +89,45 @@ export const getChargeRequestStatus = (status) => {
         }
     }
 }
+
+export const optionsEInvoice = [
+    {
+        status: -1,
+        value: "Tất cả",
+    },
+    {
+        status: 0,
+        value: "Chờ xác nhận",
+    },
+    {
+        status: 1,
+        value: "Đang giao",
+    },
+    {
+        status: 2,
+        value: "Đã giao",
+    },
+    {
+        status: 3,
+        value: "Đã hủy",
+    },
+];
+
+export const typeData = [
+    {
+        id: 0,
+        name: "Tất cả",
+    },
+    {
+        id: 1,
+        name: "Xe số",
+    },
+    {
+        id: 2,
+        name: "Xe tay ga",
+    },
+    {
+        id: 3,
+        name: "Xe phân khối lớn",
+    },
+]
