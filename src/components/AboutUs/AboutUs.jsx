@@ -12,6 +12,7 @@ const AboutUs = () => {
     <div className="about-us">
       <div style={{ textAlign: "center", margin: "15px" }}>
         <img
+          style={{ width: "100%" }}
           src="https://res.cloudinary.com/dpwehcnso/image/upload/v1696316426/uitbikes/AboutUsBanner_yfc2oy.png"
           alt="about us"
         />

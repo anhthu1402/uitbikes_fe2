@@ -70,11 +70,11 @@ export const FormatDateTime = (string) => {
 
 export const getPaymentHistory = (status) => {
     switch (status) {
-        case 2: {
-            return "Thanh toán";
+        case 3: {
+            return "Hủy";
         }
         default: {
-            return "Hủy";
+            return "Thanh toán";
         }
     }
 }

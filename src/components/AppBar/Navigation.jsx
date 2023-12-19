@@ -185,7 +185,7 @@ function Navigation(props) {
           <Link to={"cart"} onClick={() => setOpen(false)}>
             <Badge
               className="icons"
-              showZero="fasle"
+              showZero="false"
               color="error"
               variant="standard"
               badgeContent={cartNumber > 0 ? cartNumber : null}

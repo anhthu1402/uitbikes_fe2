@@ -22,6 +22,7 @@ const AuthSlice = createSlice({
             state.isAuthed = false;
             state.user = null;
             localStorage.removeItem("user");
+            localStorage.removeItem("cartNumber");
         },
         updateCartNumber(state, action) {
             state.cartNumber = action.payload;

@@ -185,15 +185,18 @@ function Cart() {
   const [openDischarge, setOpenDischarge] = useState(false);
   const [contentDialog, setContentDialog] = useState("");
   const [buttonDialog, setButtonDialog] = useState("");
+  const [link, setLink] = useState("");
   const handleOpenDischarge = (val) => {
     if (val) {
       setContentDialog(
         "Tài khoản của bạn không đủ để thanh toán, vui lòng nạp thêm tiền vào tài khoản."
       );
       setButtonDialog("Nạp tiền");
+      setLink("charge-request");
     } else {
       setContentDialog("Vui lòng điền đầy đủ thông tin cá nhân để giao hàng.");
       setButtonDialog("Trang cá nhân");
+      setLink("profile");
     }
     setOpenDischarge(!openDischarge);
   };
@@ -208,15 +211,14 @@ function Cart() {
     setTotal(price);
   };
   const [selectedRows, setSelectedRows] = useState([]);
-  const navigate = useNavigate();
   const handleDischarge = () => {
     if (user.customer.balance < total) {
       handleOpenDischarge(true);
     } else if (
-      user.customer.phone === undefined ||
-      user.customer.address === undefined ||
-      user.customer.name === undefined ||
-      user.customer.idNumber === undefined
+      user.customer.phone === null ||
+      user.customer.address === null ||
+      user.customer.name === null ||
+      user.customer.idNumber === null
     ) {
       handleOpenDischarge(false);
     } else {
@@ -256,8 +258,10 @@ function Cart() {
                         console.log(error);
                       });
                   })
+
                   .catch((error) => console.log(error));
               });
+              dispatch(authActions.updateCartNumber(response.data.length));
             })
             .catch((error) => console.log(error));
         })
@@ -377,7 +381,7 @@ function Cart() {
         <DialogActions>
           <Button onClick={handleOpenDischarge}>Đóng</Button>
           <Button>
-            <Link to={"/profile"} state={"cart"}>
+            <Link to={"/profile"} state={link}>
               {buttonDialog}
             </Link>
           </Button>

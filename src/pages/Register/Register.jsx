@@ -39,22 +39,6 @@ function Register({ handleCloseSignin, handleOpenRegister }) {
   const confirmPasswordRef = useRef();
   const [error, setError] = useState(null);
 
-  const checkUsername = (username) => {
-    userList.map((child, index) => {
-      if (child.username === username) {
-        return true;
-      }
-    });
-    return false;
-  };
-  const checkEmail = (email) => {
-    userList.map((child, index) => {
-      if (child.email === email) {
-        return true;
-      }
-    });
-    return false;
-  };
   const handleRegister = () => {
     const email = emailRef.current.value;
     const username = usernameRef.current.value;
@@ -63,25 +47,38 @@ function Register({ handleCloseSignin, handleOpenRegister }) {
     if (!email || !password || !username) {
       setError("Vui lòng điền đầy đủ các thông tin!");
     }
-    if (checkUsername(username)) {
-      setError("Tên đăng nhập này đã được sử dụng");
-    }
-    if (checkEmail(email)) {
-      setError("Email này đã được sử dụng");
-    }
     if (password !== confirmPassword) {
       setError("Mật khẩu không khớp");
     }
-    const registerForm = {
-      email: email,
-      username: username,
-      pw: password,
-    };
     axios
-      .post("http://localhost:9090/api/accounts", registerForm)
-      .then((response) => {
-        dispatch(authActions.setAuth(response.data));
-        handleCloseSignin();
+      .get("http://localhost:9090/api/accounts/username/" + username)
+      .then((res) => {
+        if (res.data === true) {
+          setError("Tên đăng nhập này đã được sử dụng");
+          return;
+        } else {
+          axios
+            .get("http://localhost:9090/api/accounts/email/" + email)
+            .then((res) => {
+              if (res.data === true) {
+                setError("Email này đã được sử dụng");
+              } else {
+                const registerForm = {
+                  email: email,
+                  username: username,
+                  pw: password,
+                };
+                axios
+                  .post("http://localhost:9090/api/accounts", registerForm)
+                  .then((response) => {
+                    dispatch(authActions.setAuth(response.data));
+                    handleCloseSignin();
+                  })
+                  .catch((error) => console.log(error));
+              }
+            })
+            .catch((error) => console.log(error));
+        }
       })
       .catch((error) => console.log(error));
   };

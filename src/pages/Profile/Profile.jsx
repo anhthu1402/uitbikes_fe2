@@ -14,7 +14,7 @@ function Profile() {
     window.scrollTo(0, 0);
   }, []);
   const location = useLocation();
-  const from = location.state != null ? location.state : "";
+  const from = location.state === "charge-request" ? location.state : "";
   const [page, setPage] = useState(
     from !== "" ? <ChargeRequest /> : <EditProfile />
   );

@@ -127,27 +127,20 @@ function BalanceManagement({ hanldeSetPage }) {
             </TableHead>
             <TableBody>
               {invoiceData &&
-                invoiceData.map(
-                  (row) =>
-                    row.status > 1 && (
-                      <StyledTableRow
-                        role="checkbox"
-                        key={row.id}
-                        tabIndex={-1}
-                      >
-                        <StyledTableCell component={"th"} scope="row">
-                          {FormatDateTime(row.date)}
-                        </StyledTableCell>
-                        <StyledTableCell>
-                          {getPaymentHistory(row.status)} hóa đơn {row.id}
-                        </StyledTableCell>
-                        <StyledTableCell>
-                          {row.status === 2 ? "-" : "+"}
-                          {currency_format(row.total)} VNĐ
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    )
-                )}
+                invoiceData.map((row) => (
+                  <StyledTableRow role="checkbox" key={row.id} tabIndex={-1}>
+                    <StyledTableCell component={"th"} scope="row">
+                      {FormatDateTime(row.date)}
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      {getPaymentHistory(row.status)} hóa đơn {row.id}
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      {row.status === 3 ? "+" : "-"}
+                      {currency_format(row.total)} VNĐ
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
