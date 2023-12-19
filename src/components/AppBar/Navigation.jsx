@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Logo from "../../assets/images/uit_bikes_logo.svg";
 import {
   Avatar,
@@ -7,7 +7,6 @@ import {
   Button,
   InputBase,
   Toolbar,
-  Container,
   CssBaseline,
   useScrollTrigger,
   Collapse,
@@ -141,8 +140,13 @@ function Navigation(props) {
           display: "none",
         }}
       >
-        <div onClick={handleSearchInput}>
-          <Search sx={{ color: "#306c6c", cursor: "pointer" }} />
+        <div
+          onClick={() => {
+            handleSearchInput();
+            setOpen(false);
+          }}
+        >
+          <Search className="icons" />
         </div>
         <InputBase
           className="inputBase"
@@ -158,43 +162,50 @@ function Navigation(props) {
           placeholder="Tìm kiếm ..."
           inputProps={{ "aria-label": "search" }}
         />
-        <div onClick={handleOpenSearchFilter}>
-          <TuneRounded sx={{ color: "#306c6c", cursor: "pointer" }} />
+        <div
+          onClick={() => {
+            handleOpenSearchFilter();
+            setOpen(false);
+          }}
+        >
+          <TuneRounded className="icons" />
         </div>
       </div>
       {isAuthed ? (
         <Box
+          className="icons-signed-in"
           style={{
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            width: open ? "45%" : "auto",
+            width: open ? "40%" : "auto",
           }}
         >
-          <Link to={"cart"}>
+          <Link to={"cart"} onClick={() => setOpen(false)}>
             <Badge
+              className="icons"
+              showZero="fasle"
+              color="error"
+              variant="standard"
               badgeContent={cartNumber > 0 ? cartNumber : null}
-              color="primary"
               sx={{ marginRight: open ? 0 : 3 }}
             >
-              <ShoppingCart sx={{ color: "#306c6c", cursor: "pointer" }} />
+              <ShoppingCart />
             </Badge>
           </Link>
-          <Link to={"notification"}>
+          <Link to={"notification"} onClick={() => setOpen(false)}>
             <NotificationsRounded
               sx={{
-                color: "#306c6c",
-                cursor: "pointer",
                 marginRight: open ? 0 : 3,
               }}
+              className="icons"
             />
           </Link>
-          <Link to={"profile"}>
+          <Link to={"profile"} onClick={() => setOpen(false)}>
             <Avatar
+              className="icons"
               sx={{
-                color: "#306c6c",
-                cursor: "pointer",
                 width: 30,
                 height: 30,
                 marginRight: open ? 0 : 3,
@@ -204,8 +215,13 @@ function Navigation(props) {
               src={user.avatar}
             />
           </Link>
-          <div onClick={handleClickOpenLogout}>
-            <ExitToApp sx={{ color: "#306c6c", cursor: "pointer" }} />
+          <div
+            onClick={() => {
+              handleClickOpenLogout();
+              setOpen(false);
+            }}
+          >
+            <ExitToApp className="icons" />
           </div>
         </Box>
       ) : (
@@ -227,8 +243,7 @@ function Navigation(props) {
           }}
         >
           <Toolbar>
-            <Container
-              maxWidth="lg"
+            <div
               className="container"
               sx={{
                 display: "flex",
@@ -252,7 +267,11 @@ function Navigation(props) {
                     alignItems: "center",
                   }}
                 >
-                  <Link to={"/"} style={{ cursor: "pointer" }}>
+                  <Link
+                    to={"/"}
+                    style={{ cursor: "pointer" }}
+                    className="link-logo"
+                  >
                     <img src={Logo} alt="" width={90} />
                   </Link>
                   <Box
@@ -310,7 +329,7 @@ function Navigation(props) {
               <Collapse in={open} timeout={"auto"}>
                 {menuDetail}
               </Collapse>
-            </Container>
+            </div>
           </Toolbar>
         </AppAppBar>
       </ElevationScroll>

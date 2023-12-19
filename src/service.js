@@ -131,3 +131,4 @@ export const typeData = [
         name: "Xe phân khối lớn",
     },
 ]
+

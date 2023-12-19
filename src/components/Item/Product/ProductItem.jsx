@@ -64,7 +64,7 @@ function ProductItem({ item }) {
           >
             {item.name}
           </Typography>
-          <Typography variant="body1">
+          <Typography variant="body1" className="product-item-content-price">
             {currency_format(item.price)} VNĐ
           </Typography>
         </CardContent>

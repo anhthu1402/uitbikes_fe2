@@ -12,6 +12,7 @@ import {
 import React, { useState } from "react";
 import { currency_format, getEInvoiceStatus } from "../../../service";
 import axios from "axios";
+import "./EInvoiceItem.css";
 
 function EInvoiceItem({ child }) {
   const [openCancel, setOpenCancel] = useState(false);
@@ -30,6 +31,7 @@ function EInvoiceItem({ child }) {
   return (
     <Box>
       <Grid
+        className="grid-1"
         container
         display={"flex"}
         flexDirection={"row"}
@@ -37,12 +39,21 @@ function EInvoiceItem({ child }) {
         justifyContent={"space-between"}
         margin={"15px auto"}
       >
-        <Grid item xs={8} md={8} sx={{ fontWeight: "bold" }}>
+        <Grid
+          item
+          xs={5}
+          sm={6}
+          md={8}
+          sx={{ fontWeight: "bold" }}
+          className="invoice-number"
+        >
           Hóa đơn số {child.id}
         </Grid>
         <Grid
+          className="status"
           item
-          xs={4}
+          xs={7}
+          sm={6}
           md={4}
           display={"flex"}
           justifyContent={"end"}
@@ -51,7 +62,9 @@ function EInvoiceItem({ child }) {
           {getEInvoiceStatus(child.status)}
           {child.status === 0 && (
             <Button
+              className="btn-cancel"
               variant="contained"
+              color="error"
               sx={{ marginLeft: 2, textTransform: "none" }}
               onClick={() => handleSetCancel()}
             >
@@ -84,27 +97,29 @@ function EInvoiceItem({ child }) {
               flexDirection={"row"}
               alignItems={"center"}
               spacing={{ xs: 1, sm: 2, md: 4 }}
-              maxHeight={{ xs: 350, md: 150 }}
-              minHeight={{ xs: 350, md: 150 }}
+              maxHeight={{ sm: 500, md: 160 }}
+              minHeight={{ sm: 500, md: 160 }}
             >
               <Grid
                 item
+                className="product-image"
                 xs={12}
                 sm={12}
                 md={3}
                 display={"flex"}
                 alignItems={"center"}
                 justifyContent={"center"}
-                maxHeight={{ xs: 250, md: 120 }}
-                minHeight={{ xs: 250, md: 120 }}
+                maxHeight={{ xs: 200, sm: 350, md: 130 }}
+                minHeight={{ xs: 200, sm: 350, md: 130 }}
                 component={"img"}
                 src={item.product.image}
-                minWidth={100}
+                minWidth={{ xs: 150, sm: 300, md: 100 }}
+                sx={{ objectFit: "contain" }}
               />
               <Grid item xs={7} sm={7} md={6}>
                 <div style={{ paddingLeft: "15px" }}>
-                  <h5>{item.product.name}</h5>
-                  <p>
+                  <h5 className="name">{item.product.name}</h5>
+                  <p className="color">
                     {item.product.color} x{item.quantity}
                   </p>
                 </div>
@@ -118,7 +133,7 @@ function EInvoiceItem({ child }) {
                 flexDirection={"column"}
                 alignItems={"center"}
               >
-                <p style={{ paddingRight: 2 }}>
+                <p style={{ paddingRight: 2 }} className="price">
                   {currency_format(item.quantity * item.product.price)} VNĐ
                 </p>
               </Grid>
@@ -129,6 +144,7 @@ function EInvoiceItem({ child }) {
       <p style={{ textAlign: "right" }}>
         <b>Thành tiền:</b>{" "}
         <span
+          className="total-price"
           style={{
             color: "#306c6c",
             fontWeight: "bold",
@@ -154,8 +170,12 @@ function EInvoiceItem({ child }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSetCancel}>Không</Button>
-          <Button onClick={() => handleCancelInvoice(child.id)}>Hủy</Button>
+          <Button color="primary" onClick={handleSetCancel}>
+            Không
+          </Button>
+          <Button color="error" onClick={() => handleCancelInvoice(child.id)}>
+            Hủy
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>

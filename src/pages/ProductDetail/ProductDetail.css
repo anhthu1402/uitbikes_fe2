@@ -9,3 +9,7 @@
 .detailTable tr:nth-child(even) {
   background-color: #fdfcfc;
 }
+.addToCart:hover,
+.btn-chooseColor:hover {
+  scale: 1.1 !important;
+}

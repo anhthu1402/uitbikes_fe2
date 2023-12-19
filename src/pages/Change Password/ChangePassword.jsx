@@ -108,6 +108,7 @@ function ChangePassword() {
             Mật khẩu cũ *
           </InputLabel>
           <OutlinedInput
+            autoComplete="new-password"
             inputRef={oldPasswordRef}
             id="outlined-adornment-password"
             type={showOldPassword ? "text" : "password"}

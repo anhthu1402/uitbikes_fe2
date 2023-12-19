@@ -14,7 +14,8 @@ import {
 import { CloseRounded } from "@mui/icons-material";
 import axios from "axios";
 import { currency_format, typeData } from "../../service";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "./SearchFilter.css";
 
 function priceText(value) {
   return `${currency_format(value)} VNĐ`;
@@ -174,7 +175,10 @@ function SearchFilter() {
           open={searchFilter.open}
           anchor="left"
         >
-          <Box sx={{ padding: 3, width: 450, marginTop: 10 }}>
+          <Box
+            sx={{ padding: 3, width: 450, marginTop: 10 }}
+            classname="filter-container"
+          >
             <div
               style={{
                 display: "flex",
@@ -197,7 +201,7 @@ function SearchFilter() {
                 justifyContent: "center",
               }}
             >
-              <FormControl fullWidth>
+              <FormControl fullWidth className="select">
                 <InputLabel id="select-brand-label">Hãng xe</InputLabel>
                 <Select
                   labelId="select-brand-label"
@@ -213,7 +217,11 @@ function SearchFilter() {
                     ))}
                 </Select>
               </FormControl>
-              <FormControl fullWidth sx={{ margin: "15px 0" }}>
+              <FormControl
+                fullWidth
+                sx={{ margin: "15px 0" }}
+                className="select"
+              >
                 <InputLabel id="select-type-label">Loại xe</InputLabel>
                 <Select
                   labelId="select-type-label"
@@ -247,6 +255,7 @@ function SearchFilter() {
                 getAriaValueText={priceText}
                 valueLabelFormat={priceText}
                 marks={priceMarks}
+                className="range"
               />
               <label>Năm sản xuất</label>
               <Slider
@@ -257,6 +266,7 @@ function SearchFilter() {
                 min={rangeDate[0]}
                 onChange={handleChangeDate}
                 marks={dateMarks}
+                className="range"
               />
               <label>Khoảng phân khối</label>
               <Slider
@@ -268,6 +278,7 @@ function SearchFilter() {
                 onChange={handleChangeCc}
                 getAriaValueText={ccText}
                 valueLabelFormat={ccText}
+                className="range"
                 marks={ccMarks}
               />
               <FormControl fullWidth sx={{ margin: "15px 0" }}>

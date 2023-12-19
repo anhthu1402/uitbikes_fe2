@@ -17,6 +17,9 @@ import { useSelector } from "react-redux";
 import { optionsEInvoice } from "../../service";
 
 function EInvoice() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const user = useSelector((state) => state.auth.user);
   const [data, setData] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState({

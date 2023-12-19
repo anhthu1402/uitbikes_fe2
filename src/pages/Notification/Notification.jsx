@@ -5,6 +5,9 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 function Notification() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [invoiceData, setInvoiceData] = useState([]);
   const { isAuthed, user } = useSelector((state) => state.auth);
   useEffect(() => {

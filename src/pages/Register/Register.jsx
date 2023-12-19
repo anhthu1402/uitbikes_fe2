@@ -127,6 +127,7 @@ function Register({ handleCloseSignin, handleOpenRegister }) {
               Mật khẩu
             </InputLabel>
             <Input
+              autoComplete="new-password"
               inputRef={passwordRef}
               id="outlined-adornment-password"
               type={showPassword ? "text" : "password"}

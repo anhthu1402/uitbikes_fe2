@@ -1,0 +1,16 @@
+@media screen and (max-width: 450px) {
+  .css-1r0f80t {
+    width: 350px !important;
+  }
+  .range {
+    width: 70% !important;
+  }
+}
+@media screen and (max-width: 352px) {
+  .css-1r0f80t {
+    width: 300px !important;
+  }
+  .range {
+    width: 70% !important;
+  }
+}

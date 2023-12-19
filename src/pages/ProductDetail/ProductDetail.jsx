@@ -8,11 +8,8 @@ import {
   ButtonGroup,
   Typography,
   InputBase,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
@@ -21,8 +18,17 @@ import "./ProductDetail.css";
 import { currency_format } from "../../service";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
+import { Slide, SlideProps } from "@mui/material";
+
+type TransitionProps = Omit<SlideProps, "direction">;
+function TransitionLeft(props: TransitionProps) {
+  return <Slide {...props} direction="right" />;
+}
 
 function ProductDetail() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const location = useLocation();
   const { isAuthed, user } = useSelector((state) => state.auth);
   const product = location.state;
@@ -190,6 +196,7 @@ function ProductDetail() {
           <Grid container sx={{ marginTop: 3 }}>
             {detail.map((child, index) => (
               <Button
+                className="btn-chooseColor"
                 key={index}
                 variant={chooseProduct === child.id ? "contained" : "outlined"}
                 color="success"
@@ -215,6 +222,7 @@ function ProductDetail() {
           </Typography>
           <ButtonGroup sx={{ margin: 2, marginTop: 3 }}>
             <Button
+              className="btn-quantity"
               onClick={() => handleDecrease()}
               variant="outlined"
               sx={{ borderColor: "#306c6c", color: "#306c6c" }}
@@ -242,6 +250,7 @@ function ProductDetail() {
               inputProps={{ style: { textAlign: "center" } }}
             />
             <Button
+              className="btn-quantity"
               onClick={() => handleIncrease()}
               variant="outlined"
               sx={{ borderColor: "#306c6c", color: "#306c6c" }}
@@ -261,6 +270,7 @@ function ProductDetail() {
             }}
           >
             <Button
+              className="addToCart"
               disabled={isAuthed ? false : true}
               onClick={handleAddToCart}
               variant="contained"
@@ -304,26 +314,16 @@ function ProductDetail() {
         <h2>Mô tả</h2>
         <p>{product.describe}</p>
       </Box>
-      <Dialog
+      <Snackbar
         open={open}
+        autoHideDuration={6000}
         onClose={handleOpen}
-        fullWidth
-        maxWidth="xs"
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        TransitionComponent={TransitionLeft}
       >
-        <DialogTitle id="alert-dialog-title">{"Thông báo"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Thêm sản phẩm vào giỏ hàng thành công.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleOpen} autoFocus>
-            Đóng
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <Alert onClose={handleOpen} severity="success" sx={{ width: "100%" }}>
+          Thêm sản phẩm vào giỏ hàng thành công.
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

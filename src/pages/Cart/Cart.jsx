@@ -21,9 +21,11 @@ import axios from "axios";
 import { authActions } from "../../store/auth";
 
 function Cart() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { isAuthed, cartNumber, user } = useSelector((state) => state.auth);
   useEffect(() => {
     axios
@@ -206,6 +208,7 @@ function Cart() {
     setTotal(price);
   };
   const [selectedRows, setSelectedRows] = useState([]);
+  const navigate = useNavigate();
   const handleDischarge = () => {
     if (user.customer.balance < total) {
       handleOpenDischarge(true);
@@ -297,11 +300,12 @@ function Cart() {
               justifyContent: "space-between",
             }}
           >
-            <Typography variant="h5">
+            <Typography variant="h5" className="total-price">
               Tổng tiền: {currency_format(total)} VNĐ
             </Typography>
             <Button
               variant="contained"
+              className="charge"
               onClick={handleDischarge}
               disabled={numberOfCart === 0 ? true : false}
             >

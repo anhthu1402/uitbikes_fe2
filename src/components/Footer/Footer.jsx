@@ -19,68 +19,66 @@ function Footer() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
           }}
           textAlign={{ xs: "center", sm: "center", md: "left" }}
           item
           xs={12}
           sm={12}
           md={4}
+          alignItems={{ xs: "center", sm: "center", md: "baseline" }}
         >
-          <div>
-            <h5 style={{ marginBottom: 15 }}>UIT BIKES</h5>
-            <Box>
-              <p>
-                <b>Địa chỉ: </b>Trường Đại học CNTT, Khu phố 6, P.Linh Trung,
-                TP.Thủ Đức, TP. HCM
-              </p>
-              <p>
-                <b>Điện thoại: </b>1234567890
-              </p>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: 180,
-              }}
-            >
-              <Link to={"http://localhost:3000"} target="_blank">
-                <img
-                  title="Template 1"
-                  src={require("../../assets/images/github.png")}
-                  alt=""
-                  width={30}
-                />
-              </Link>
-              <Link to={"http://localhost:3000"} target="_blank">
-                <img
-                  title="Template 2"
-                  src={require("../../assets/images/github.png")}
-                  alt=""
-                  width={30}
-                />
-              </Link>
-              <Link to={"http://localhost:3000"} target="_blank">
-                <img
-                  title="Template 3"
-                  src={require("../../assets/images/github.png")}
-                  alt=""
-                  width={30}
-                />
-              </Link>
-              <Link to={"http://localhost:3000"} target="_blank">
-                <img
-                  title="Admin"
-                  src={require("../../assets/images/github.png")}
-                  alt=""
-                  width={30}
-                />
-              </Link>
-            </Box>
-          </div>
+          <h5 style={{ marginBottom: 15 }}>UIT BIKES</h5>
+          <Box>
+            <p>
+              <b>Địa chỉ: </b>Trường Đại học CNTT, Khu phố 6, P.Linh Trung,
+              TP.Thủ Đức, TP. HCM
+            </p>
+            <p>
+              <b>Điện thoại: </b>1234567890
+            </p>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: 180,
+            }}
+          >
+            <Link to={"http://localhost:3000"} target="_blank">
+              <img
+                title="Template 1"
+                src={require("../../assets/images/github.png")}
+                alt=""
+                width={30}
+              />
+            </Link>
+            <Link to={"http://localhost:3000"} target="_blank">
+              <img
+                title="Template 2"
+                src={require("../../assets/images/github.png")}
+                alt=""
+                width={30}
+              />
+            </Link>
+            <Link to={"http://localhost:3000"} target="_blank">
+              <img
+                title="Template 3"
+                src={require("../../assets/images/github.png")}
+                alt=""
+                width={30}
+              />
+            </Link>
+            <Link to={"http://localhost:3000"} target="_blank">
+              <img
+                title="Admin"
+                src={require("../../assets/images/github.png")}
+                alt=""
+                width={30}
+              />
+            </Link>
+          </Box>
         </Grid>
         <Grid
           sx={{

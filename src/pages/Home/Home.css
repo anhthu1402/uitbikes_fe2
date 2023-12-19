@@ -8,6 +8,9 @@
 .iconCatBtn {
   font-size: 45px !important;
 }
+.catName {
+  font-weight: 500;
+}
 .catBtn:hover {
   .catBtnItem {
     background-color: #306c6c !important;

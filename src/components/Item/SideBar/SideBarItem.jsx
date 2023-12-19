@@ -5,6 +5,7 @@ import "./SideBarItem.css";
 function SideBarItem({ item, hanldeSetPage, path }) {
   return (
     <Box
+      className="btn-chooseItem"
       onClick={() => {
         hanldeSetPage(item.path);
       }}

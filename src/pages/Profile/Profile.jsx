@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../../components/SideBar/SideBar";
 import EditProfile from "./EditProfile";
 import ChangePassword from "../Change Password/ChangePassword";
@@ -10,6 +10,9 @@ import "./Profile.css";
 import { useLocation } from "react-router-dom";
 
 function Profile() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const location = useLocation();
   const from = location.state != null ? location.state : "";
   const [page, setPage] = useState(

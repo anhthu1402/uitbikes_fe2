@@ -13,6 +13,9 @@
   height: 100%;
   width: 100%;
 }
+.btn-saveChange:hover {
+  scale: 1.1 !important;
+}
 @media screen and (min-width: 900px) {
   .profile-page {
     width: 80%;

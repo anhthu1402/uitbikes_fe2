@@ -1,20 +1,19 @@
 import { EditRounded } from "@mui/icons-material";
 import {
+  Alert,
   Avatar,
+  Backdrop,
   Badge,
   Box,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
+  CircularProgress,
   FormControl,
   FormControlLabel,
   FormLabel,
   Grid,
   Radio,
   RadioGroup,
+  Snackbar,
   TextField,
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -27,6 +26,12 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
+import { Slide, SlideProps } from "@mui/material";
+
+type TransitionProps = Omit<SlideProps, "direction">;
+function TransitionLeft(props: TransitionProps) {
+  return <Slide {...props} direction="right" />;
+}
 
 function EditProfile() {
   const { isAuthed, user } = useSelector((state) => state.auth);
@@ -40,6 +45,7 @@ function EditProfile() {
     var uniqueId;
 
     function processFile(e) {
+      setOpenBackdrop(true);
       console.log("changed");
       uniqueId = "dvmxvwqev" + new Date().getTime();
       var size = file.size;
@@ -107,6 +113,7 @@ function EditProfile() {
               avatar: response.data.url,
             };
             dispatch(authActions.setAuth(account));
+            setOpenBackdrop(false);
             handleOpen();
           })
           .catch((error) => {
@@ -132,6 +139,7 @@ function EditProfile() {
   const handleOpen = () => {
     setOpen(!open);
   };
+  const [openBackdrop, setOpenBackdrop] = useState(false);
 
   const handleChange = () => {
     const name = nameRef.current.value;
@@ -265,6 +273,7 @@ function EditProfile() {
       </Grid>
       <p style={{ textAlign: "center" }}>
         <Button
+          className="btn-saveChange"
           variant="contained"
           onClick={handleChange}
           sx={{
@@ -278,26 +287,19 @@ function EditProfile() {
           Lưu thay đổi
         </Button>
       </p>
-      <Dialog
+      <Snackbar
         open={open}
+        autoHideDuration={6000}
         onClose={handleOpen}
-        fullWidth
-        maxWidth="xs"
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        TransitionComponent={TransitionLeft}
       >
-        <DialogTitle id="alert-dialog-title">{"Thông báo"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Cập nhật thành công.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleOpen} autoFocus>
-            Đóng
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <Alert onClose={handleOpen} severity="success" sx={{ width: "100%" }}>
+          Cập nhật thành công.
+        </Alert>
+      </Snackbar>
+      <Backdrop sx={{ color: "#fff", zIndex: 1101 }} open={openBackdrop}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Box>
   );
 }

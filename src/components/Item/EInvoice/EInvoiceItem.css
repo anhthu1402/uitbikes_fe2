@@ -1,0 +1,43 @@
+@media screen and (max-width: 680px) {
+  .status {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 602px) {
+  .status {
+    font-size: 13px;
+  }
+  .btn-cancel {
+    font-size: smaller;
+    padding: 5px !important;
+  }
+}
+@media screen and (max-width: 461px) {
+  .total-price {
+    font-size: medium !important;
+  }
+  .name {
+    font-size: 17px;
+  }
+  .color,
+  .price {
+    font-size: small;
+  }
+  .invoice-number {
+    font-size: 14px !important;
+  }
+  .btn-cancel {
+    margin-left: 10px !important;
+  }
+  .profile-page {
+    padding-left: 20px !important;
+  }
+}
+@media screen and (max-width: 378px) {
+  .grid-1 {
+    flex-direction: column;
+    align-items: baseline;
+  }
+  .status {
+  }
+}
