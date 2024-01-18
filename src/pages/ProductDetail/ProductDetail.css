@@ -13,3 +13,31 @@
 .btn-chooseColor:hover {
   scale: 1.1 !important;
 }
+.product-reviews {
+  .header {
+    margin: 20px 0;
+  }
+}
+@media screen and (max-width: 650px) {
+  .p_image {
+    max-height: 300px !important;
+    min-height: 300px !important;
+  }
+}
+@media screen and (max-width: 500px) {
+  .p_price {
+    font-size: medium !important;
+  }
+  .p_price span {
+    font-size: large !important;
+  }
+}
+@media screen and (max-width: 450px) {
+  .p_image {
+    max-height: 250px !important;
+    min-height: 250px !important;
+  }
+  .p_name {
+    font-size: xx-large !important;
+  }
+}

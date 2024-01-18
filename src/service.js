@@ -65,7 +65,7 @@ export const FormatDate = (string) => {
 }
 
 export const FormatDateTime = (string) => {
-    return dayjs(new Date(string).toLocaleString()).format('DD/MM/YYYY HH:mm:ss');
+    return dayjs(new Date(string).toLocaleString()).format('HH:mm:ss DD/MM/YYYY');
 }
 
 export const getPaymentHistory = (status) => {
@@ -131,4 +131,3 @@ export const typeData = [
         name: "Xe phân khối lớn",
     },
 ]
-

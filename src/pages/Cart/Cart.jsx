@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import EmptyCart from "../../assets/images/empty_cart.png";
 import {
   Box,
   Button,
@@ -12,7 +11,7 @@ import {
   InputBase,
   Typography,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import "./Cart.css";
 import { currency_format } from "../../service";
@@ -31,7 +30,7 @@ function Cart() {
     axios
       .get("http://localhost:9090/api/carts/customer/" + user.customer.id)
       .then((response) => {
-        setData(response.data);
+        setData(response.data.reverse());
         dispatch(authActions.updateCartNumber(response.data.length));
       })
       .catch((error) => console.log(error));
@@ -192,7 +191,7 @@ function Cart() {
         "Tài khoản của bạn không đủ để thanh toán, vui lòng nạp thêm tiền vào tài khoản."
       );
       setButtonDialog("Nạp tiền");
-      setLink("charge-request");
+      setLink("/profile/charge-request");
     } else {
       setContentDialog("Vui lòng điền đầy đủ thông tin cá nhân để giao hàng.");
       setButtonDialog("Trang cá nhân");
@@ -312,6 +311,7 @@ function Cart() {
               className="charge"
               onClick={handleDischarge}
               disabled={numberOfCart === 0 ? true : false}
+              sx={{ backgroundColor: "#306c6c" }}
             >
               Thanh toán ({numberOfCart})
             </Button>
@@ -326,7 +326,11 @@ function Cart() {
             flexDirection: "column",
           }}
         >
-          <img src={EmptyCart} alt="" width={300} />
+          <img
+            src="https://res.cloudinary.com/dvmxvwqev/image/upload/v1705575248/uitbikes/image-project/bcmmkkzwyxnfpkdmuo7i.png"
+            alt=""
+            width={300}
+          />
           <Link to={"/"}>
             <Button
               variant="contained"
@@ -381,7 +385,7 @@ function Cart() {
         <DialogActions>
           <Button onClick={handleOpenDischarge}>Đóng</Button>
           <Button>
-            <Link to={"/profile"} state={link}>
+            <Link to={link} state={link}>
               {buttonDialog}
             </Link>
           </Button>

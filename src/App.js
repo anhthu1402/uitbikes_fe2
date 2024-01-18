@@ -12,6 +12,14 @@ import Register from "./pages/Register/Register"
 import { Provider } from 'react-redux';
 import store from './store/store';
 import SearchPage from './pages/Search/SearchPage';
+import Review from './pages/Review/Review';
+import ReviewInvoice from './pages/Review-Invoice/ReviewInvoice';
+import EditProfile from './pages/Profile/EditProfile';
+import ChargeRequest from './pages/Charge Request/ChargeRequest';
+import ChangePassword from './pages/Change Password/ChangePassword';
+import BalanceManagement from './pages/BalanceManagement/BalanceManagement';
+import EInvoice from './pages/EInvoice/EInvoice';
+import EditReview from './pages/EditReview/EditReview';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +41,32 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile />,
+        children: [
+          {
+            index: true,
+            element: <EditProfile />
+          },
+          {
+            path: "charge-request",
+            element: <ChargeRequest />
+          },
+          {
+            path: 'change-password',
+            element: <ChangePassword />
+          },
+          {
+            path: 'balance',
+            element: <BalanceManagement />
+          },
+          {
+            path: 'invoice',
+            element: <EInvoice />
+          },
+          {
+            path: 'my-review',
+            element: <Review />
+          }
+        ]
       },
       {
         path: 'notification',
@@ -53,6 +87,18 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: <SearchPage />
+      },
+      {
+        path: 'my-review',
+        element: <Review />
+      },
+      {
+        path: 'review-invoice/*',
+        element: <ReviewInvoice />
+      },
+      {
+        path: 'edit-review/*',
+        element: <EditReview />
       }
     ]
   }

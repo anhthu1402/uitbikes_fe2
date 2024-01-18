@@ -3,7 +3,6 @@ import SearchFilterContext from "../../SearchFilterContext";
 import { Box, Button, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import ProductItem from "../../components/Item/Product/ProductItem";
-import SearchEmpty from "../../assets/images/search-empty.png";
 
 function SearchPage() {
   const searchFilterContext = useContext(SearchFilterContext);
@@ -35,7 +34,11 @@ function SearchPage() {
             flexDirection: "column",
           }}
         >
-          <img src={SearchEmpty} alt="" width={300} />
+          <img
+            src="https://res.cloudinary.com/dvmxvwqev/image/upload/v1705575246/uitbikes/image-project/nytsbkrc9iosj3b1bc2m.png"
+            alt=""
+            width={300}
+          />
           <p style={{ fontStyle: "italic" }}>
             Rất tiếc, không có sản phẩm bạn đang tìm.
           </p>

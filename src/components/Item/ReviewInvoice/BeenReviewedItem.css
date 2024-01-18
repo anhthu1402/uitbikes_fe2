@@ -1,0 +1,25 @@
+.been-reviewed-item {
+  .item-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .item-image {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .review-images {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .review-images > img {
+    border-radius: 10px;
+    margin: 10px;
+  }
+  .review-content {
+    margin-top: 15px;
+  }
+}

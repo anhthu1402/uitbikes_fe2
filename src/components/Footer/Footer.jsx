@@ -49,7 +49,7 @@ function Footer() {
             <Link to={"http://localhost:3000"} target="_blank">
               <img
                 title="Template 1"
-                src={require("../../assets/images/github.png")}
+                src="https://res.cloudinary.com/dvmxvwqev/image/upload/v1705575249/uitbikes/image-project/github.png"
                 alt=""
                 width={30}
               />
@@ -57,7 +57,7 @@ function Footer() {
             <Link to={"http://localhost:3000"} target="_blank">
               <img
                 title="Template 2"
-                src={require("../../assets/images/github.png")}
+                src="https://res.cloudinary.com/dvmxvwqev/image/upload/v1705575249/uitbikes/image-project/github.png"
                 alt=""
                 width={30}
               />
@@ -65,7 +65,7 @@ function Footer() {
             <Link to={"http://localhost:3000"} target="_blank">
               <img
                 title="Template 3"
-                src={require("../../assets/images/github.png")}
+                src="https://res.cloudinary.com/dvmxvwqev/image/upload/v1705575249/uitbikes/image-project/github.png"
                 alt=""
                 width={30}
               />
@@ -73,7 +73,7 @@ function Footer() {
             <Link to={"http://localhost:3000"} target="_blank">
               <img
                 title="Admin"
-                src={require("../../assets/images/github.png")}
+                src="https://res.cloudinary.com/dvmxvwqev/image/upload/v1705575249/uitbikes/image-project/github.png"
                 alt=""
                 width={30}
               />

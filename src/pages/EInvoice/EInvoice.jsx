@@ -40,7 +40,7 @@ function EInvoice() {
       .catch((error) => {
         console.log(error);
       });
-  }, [data, selectedIndex, user]);
+  }, [data, selectedIndex, user.customer.id]);
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const handleMenuItemClick = (event, index) => {
@@ -134,10 +134,18 @@ function EInvoice() {
         </Popper>
       </Box>
       <Box>
-        {data &&
-          data.map((child, index) => (
-            <EInvoiceItem child={child} key={index} />
-          ))}
+        {data && data.length > 0 ? (
+          data.map((child, index) => <EInvoiceItem child={child} key={index} />)
+        ) : (
+          <div style={{ textAlign: "center", marginTop: 50 }}>
+            <img
+              src="https://res.cloudinary.com/dvmxvwqev/image/upload/v1705575248/uitbikes/image-project/fhemxtokqdfxwua8jolf.png"
+              alt=""
+              width={200}
+            />
+            <p>Không tìm thấy hóa đơn nào.</p>
+          </div>
+        )}
       </Box>
     </div>
   );

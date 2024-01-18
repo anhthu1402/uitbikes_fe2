@@ -3,6 +3,7 @@ import {
   CreditCardRounded,
   PasswordRounded,
   PersonRounded,
+  RateReviewRounded,
   ReceiptLongRounded,
 } from "@mui/icons-material";
 
@@ -31,5 +32,10 @@ export const SideBarData = [
     title: "Đơn mua",
     icon: ReceiptLongRounded,
     path: "invoice",
+  },
+  {
+    title: "Đánh giá",
+    icon: RateReviewRounded,
+    path: "my-review",
   },
 ];

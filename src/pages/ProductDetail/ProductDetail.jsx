@@ -19,6 +19,7 @@ import { currency_format } from "../../service";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
 import { Slide, SlideProps } from "@mui/material";
+import BeenReviewedItem from "../../components/Item/ReviewInvoice/BeenReviewedItem";
 
 type TransitionProps = Omit<SlideProps, "direction">;
 function TransitionLeft(props: TransitionProps) {
@@ -146,12 +147,23 @@ function ProductDetail() {
       });
   };
 
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:9090/api/reviews/product/id/" + chooseProduct)
+      .then((res) => {
+        setReviews(res.data);
+      })
+      .catch((error) => console.log(error));
+  }, [reviews, chooseProduct]);
+
   return (
     <Box sx={{ flexGrow: 1, marginTop: 12 }}>
       <Grid container spacing={{ xs: 1, md: 4 }} columns={{ xs: 4, md: 12 }}>
         <Grid item xs={12} sm={6} md={6} sx={{ marginBottom: 5 }}>
           <Card>
             <CardMedia
+              className="p_image"
               sx={{ maxHeight: 400, minHeight: 400, objectFit: "contain" }}
               component={"img"}
               image={image}
@@ -166,7 +178,7 @@ function ProductDetail() {
                 },
               }}
             >
-              <Typography variant="h5" component={"div"}>
+              <Typography variant="h5" component={"div"} className="p_price">
                 Giá bán lẻ đề xuất:{" "}
                 <span
                   style={{
@@ -184,6 +196,7 @@ function ProductDetail() {
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
           <Typography
+            className="p_name"
             variant="h4"
             component={"div"}
             sx={{ color: "#306c6c", fontWeight: "bold", marginBottom: 5 }}
@@ -314,6 +327,20 @@ function ProductDetail() {
         <h2>Mô tả</h2>
         <p>{product.describe}</p>
       </Box>
+      <div className="product-reviews">
+        <div>
+          <div className="header">
+            <h2>Đánh giá ({reviews.length > 0 ? reviews.length : 0})</h2>
+          </div>
+          <div className="content">
+            {reviews &&
+              reviews.length > 0 &&
+              reviews.map((child, index) => (
+                <BeenReviewedItem item={child} key={index} />
+              ))}
+          </div>
+        </div>
+      </div>
       <Snackbar
         open={open}
         autoHideDuration={6000}

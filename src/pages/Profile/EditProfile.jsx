@@ -34,6 +34,9 @@ function TransitionLeft(props: TransitionProps) {
 }
 
 function EditProfile() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { isAuthed, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [customer, setCustomer] = useState(user.customer);

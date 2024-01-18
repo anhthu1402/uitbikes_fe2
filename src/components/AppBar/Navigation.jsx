@@ -1,5 +1,4 @@
 import React, { useContext, useRef, useState } from "react";
-import Logo from "../../assets/images/uit_bikes_logo.svg";
 import {
   Avatar,
   Badge,
@@ -272,7 +271,11 @@ function Navigation(props) {
                     style={{ cursor: "pointer" }}
                     className="link-logo"
                   >
-                    <img src={Logo} alt="" width={90} />
+                    <img
+                      src="https://res.cloudinary.com/dpwehcnso/image/upload/v1705577082/uitbikes/UIT_Bikes_n2jqiz.png?fbclid=IwAR1xyvl474-4rRs5qjzDar8eqFDJ_sPRAJ2BL9nlAB00YkcFrvAN9_FfxAM"
+                      alt=""
+                      width={90}
+                    />
                   </Link>
                   <Box
                     className="searchBarDesktop"
@@ -348,7 +351,7 @@ function Navigation(props) {
             display={{ xs: "none", sm: "none", md: "block" }}
           >
             <img
-              src={require("../../assets/images/signin-image.png")}
+              src="https://res.cloudinary.com/dvmxvwqev/image/upload/v1705575247/uitbikes/image-project/ae5xwqhigm9thfjmsefx.png"
               alt=""
               style={{ objectFit: "contain" }}
               width={"100%"}

@@ -23,6 +23,7 @@ import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { authActions } from "../../store/auth";
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -44,12 +45,13 @@ const StyledTableRow = styled(TableRow)(() => ({
   },
 }));
 
-function BalanceManagement({ hanldeSetPage }) {
+function BalanceManagement() {
   const { isAuthed, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [balance, setBalance] = useState(user.customer.balance);
   const [invoiceData, setInvoiceData] = useState([]);
   const [chargeRequestData, setChargeRequestData] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(
@@ -106,7 +108,7 @@ function BalanceManagement({ hanldeSetPage }) {
               backgroundColor: "#306c60",
             },
           }}
-          onClick={() => hanldeSetPage("charge-request")}
+          onClick={() => navigate("/profile/charge-request")}
         >
           Nạp tiền
         </Button>

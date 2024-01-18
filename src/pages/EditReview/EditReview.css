@@ -1,0 +1,24 @@
+.ri-images {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.ri-images > div {
+  position: relative;
+}
+.ri-images > div > img {
+  border-radius: 10px;
+  margin: 10px;
+}
+.ri-images .remove-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.ri-images .remove-icon > svg {
+  color: #306c6c;
+  cursor: pointer;
+}
+.ri-images .remove-icon:hover > svg {
+  scale: 1.2;
+}

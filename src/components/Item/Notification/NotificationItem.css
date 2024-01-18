@@ -1,3 +1,12 @@
+.noti-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.noti-div > a > button:hover {
+  scale: 1.1;
+  background-color: #306c60;
+}
 .noti-item {
   max-width: 350px !important;
   min-width: 350px !important;

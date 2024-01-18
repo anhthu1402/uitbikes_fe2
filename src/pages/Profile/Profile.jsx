@@ -7,7 +7,25 @@ import BalanceManagement from "../BalanceManagement/BalanceManagement";
 import ChargeRequest from "../Charge Request/ChargeRequest";
 import EInvoice from "../EInvoice/EInvoice";
 import "./Profile.css";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import Review from "../Review/Review";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/profile",
+    children: [
+      {
+        index: true,
+        element: <EditProfile />,
+      },
+      {
+        path: "charge-request",
+        element: <ChargeRequest />,
+      },
+    ],
+  },
+]);
 
 function Profile() {
   useEffect(() => {
@@ -15,39 +33,7 @@ function Profile() {
   }, []);
   const location = useLocation();
   const from = location.state === "charge-request" ? location.state : "";
-  const [page, setPage] = useState(
-    from !== "" ? <ChargeRequest /> : <EditProfile />
-  );
   const [path, setPath] = useState(from !== "" ? "charge-request" : "profile");
-  const hanldeSetPage = (path) => {
-    switch (path) {
-      case "profile": {
-        setPage(<EditProfile />);
-        setPath(path);
-        break;
-      }
-      case "change-password": {
-        setPage(<ChangePassword />);
-        setPath(path);
-        break;
-      }
-      case "balance": {
-        setPage(<BalanceManagement hanldeSetPage={hanldeSetPage} />);
-        setPath(path);
-        break;
-      }
-      case "charge-request": {
-        setPage(<ChargeRequest />);
-        setPath(path);
-        break;
-      }
-      default: {
-        setPage(<EInvoice />);
-        setPath(path);
-        break;
-      }
-    }
-  };
   return (
     <Box
       sx={{
@@ -57,7 +43,7 @@ function Profile() {
         alignItems: "flex-start",
       }}
     >
-      <SideBar hanldeSetPage={hanldeSetPage} path={path} />
+      <SideBar path={path} setPath={setPath} />
       <div
         className="profile-page"
         style={{
@@ -65,7 +51,7 @@ function Profile() {
           paddingLeft: "40px",
         }}
       >
-        {page}
+        <Outlet />
       </div>
     </Box>
   );

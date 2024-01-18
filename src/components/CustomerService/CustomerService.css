@@ -1,0 +1,99 @@
+.chatBtnDiv {
+  position: fixed !important;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 50px;
+  margin-right: 50px;
+  z-index: 1100;
+}
+.chatBtnDiv:hover button {
+  background-color: #e6eaea !important;
+}
+.chatBtnDiv:hover svg {
+  color: #77c9c9 !important;
+}
+.chatDiv {
+  position: fixed !important;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 120px;
+  margin-right: 50px;
+  z-index: 1100;
+  height: 400px;
+  width: 300px;
+  border: 2px solid #306c6c;
+  border-radius: 15px !important;
+}
+.chatHeader {
+  color: #306c6c;
+  border-bottom: 1px solid #77c9c9;
+  padding: 10px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.closeBtn {
+  cursor: pointer;
+}
+.closeBtn:hover {
+  color: #77c9c9;
+}
+.chatContent {
+  height: 280px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+.chatBox {
+  margin: 0 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.sendBtn {
+  margin-left: 14px;
+}
+.userChat {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: right;
+}
+.sendingIcon {
+  float: right;
+  margin-right: 5px;
+}
+.sendingIcon > svg {
+  font-size: 13px !important;
+}
+.userChatContent {
+  background-color: #306c6c;
+  color: white;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin: 10px 5px 0 25px;
+  overflow-wrap: break-word !important;
+}
+.adminChatContent {
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin: 10px 30px 0 10px;
+  overflow-wrap: break-word !important;
+  border: 1px solid #306c6c;
+  width: fit-content;
+}
+@media screen and (max-width: 860px) {
+  .chatBtnDiv {
+    margin-bottom: 60px;
+    margin-right: 20px;
+  }
+  .chatDiv {
+    margin-bottom: 140px;
+    margin-right: 20px;
+    height: 400px;
+    width: 300px;
+  }
+}

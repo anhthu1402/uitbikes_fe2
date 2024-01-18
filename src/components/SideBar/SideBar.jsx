@@ -3,7 +3,7 @@ import React from "react";
 import { SideBarData } from "../Data/SideBarData";
 import SideBarItem from "../Item/SideBar/SideBarItem";
 
-function SideBar({ hanldeSetPage, path }) {
+function SideBar({ path, setPath }) {
   return (
     <Box
       sx={{
@@ -11,12 +11,7 @@ function SideBar({ hanldeSetPage, path }) {
       }}
     >
       {SideBarData.map((child, index) => (
-        <SideBarItem
-          item={child}
-          key={index}
-          hanldeSetPage={hanldeSetPage}
-          path={path}
-        />
+        <SideBarItem item={child} key={index} path={path} setPath={setPath} />
       ))}
     </Box>
   );

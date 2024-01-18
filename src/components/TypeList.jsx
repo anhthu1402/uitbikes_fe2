@@ -11,7 +11,7 @@ function TypeList({ handleChangeType }) {
         alignItems: "center",
         justifyContent: "space-evenly",
         textAlign: "center",
-        marginBottom: 5,
+        marginBottom: 4,
       }}
     >
       {TypeData.map((child, index) => (

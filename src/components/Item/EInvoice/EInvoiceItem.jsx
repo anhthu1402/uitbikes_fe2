@@ -9,13 +9,15 @@ import {
   Grid,
   Paper,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { currency_format, getEInvoiceStatus } from "../../../service";
 import axios from "axios";
 import "./EInvoiceItem.css";
+import { Link } from "react-router-dom";
 
 function EInvoiceItem({ child }) {
   const [openCancel, setOpenCancel] = useState(false);
+  const [beenReviewed, setBeenReviewed] = useState(true);
   const handleSetCancel = () => {
     setOpenCancel(!openCancel);
   };
@@ -28,6 +30,18 @@ function EInvoiceItem({ child }) {
       })
       .catch((error) => console.log(error));
   };
+  useEffect(() => {
+    if (child.status === 2) {
+      axios
+        .get("http://localhost:9090/api/reviews/invoice/" + child.id)
+        .then((res) => {
+          if (!res.data) {
+            setBeenReviewed(false);
+          }
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [beenReviewed, child.status, child.id]);
   return (
     <Box>
       <Grid
@@ -70,6 +84,21 @@ function EInvoiceItem({ child }) {
             >
               Hủy
             </Button>
+          )}
+          {!beenReviewed && (
+            <Link
+              to={"/review-invoice/" + child.id}
+              state={{ details: child.details, customerId: child.customerId }}
+            >
+              <Button
+                className="btn-cancel"
+                variant="contained"
+                color="info"
+                sx={{ marginLeft: 2, textTransform: "none" }}
+              >
+                Đánh giá
+              </Button>
+            </Link>
           )}
         </Grid>
       </Grid>

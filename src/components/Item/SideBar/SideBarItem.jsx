@@ -1,13 +1,21 @@
 import { Box } from "@mui/material";
 import React from "react";
 import "./SideBarItem.css";
+import { useNavigate } from "react-router-dom";
 
-function SideBarItem({ item, hanldeSetPage, path }) {
+function SideBarItem({ item, path, setPath }) {
+  const navigate = useNavigate();
   return (
     <Box
       className="btn-chooseItem"
       onClick={() => {
-        hanldeSetPage(item.path);
+        if (item.path !== "profile") {
+          navigate("/profile/" + item.path);
+          setPath(item.path);
+        } else {
+          navigate("/profile");
+          setPath("profile");
+        }
       }}
       title={item.title}
       sx={
