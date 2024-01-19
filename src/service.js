@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc"
 
 export const currency_format = (money) => {
     return Intl.NumberFormat('en-DE').format(money);
@@ -60,12 +61,14 @@ export const notiEInvoiceStatus = (invoiceId, status) => {
         }
     }
 }
+dayjs.extend(utc)
 export const FormatDate = (string) => {
-    return dayjs(new Date(string).toLocaleString()).format('DD/MM/YYYY');
+    return dayjs(new Date(string)).local().format('DD/MM/YYYY');
 }
 
 export const FormatDateTime = (string) => {
-    return dayjs(new Date(string).toLocaleString()).format('HH:mm:ss DD/MM/YYYY');
+
+    return dayjs.utc(new Date(string)).local().format('HH:mm:ss DD/MM/YYYY');
 }
 
 export const getPaymentHistory = (status) => {

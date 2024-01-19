@@ -77,7 +77,7 @@ function SearchFilter() {
         setColors(response.data);
       })
       .catch((error) => console.log(error));
-  }, [brandData, cc, date, price]);
+  }, [brandData, cc, date, price, rangeCc, rangeDate, rangePrice, colors]);
   const searchFilter = useContext(SearchFilterContext);
   const toggleDrawer = (open) => (event) => {
     if (
@@ -89,8 +89,8 @@ function SearchFilter() {
     searchFilter.setOpen(open);
     localStorage.setItem("openSearchFilter", open);
   };
-  const [type, setType] = useState(null);
-  const [brand, setBrand] = useState(null);
+  const [type, setType] = useState("");
+  const [brand, setBrand] = useState("");
   const handleChooseBrand = (item) => {
     setBrand(item);
   };
@@ -177,7 +177,7 @@ function SearchFilter() {
         >
           <Box
             sx={{ padding: 3, width: 450, marginTop: 10 }}
-            classname="filter-container"
+            className="filter-container"
           >
             <div
               style={{

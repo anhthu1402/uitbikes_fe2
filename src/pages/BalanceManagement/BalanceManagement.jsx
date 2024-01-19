@@ -48,7 +48,7 @@ const StyledTableRow = styled(TableRow)(() => ({
 function BalanceManagement() {
   const { isAuthed, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [balance, setBalance] = useState(user.customer.balance);
+  const [balance, setBalance] = useState(user.customer.balance || 0);
   const [invoiceData, setInvoiceData] = useState([]);
   const [chargeRequestData, setChargeRequestData] = useState([]);
   const navigate = useNavigate();
@@ -60,13 +60,18 @@ function BalanceManagement() {
           "/status/-1"
       )
       .then((res) => {
-        setInvoiceData(res.data.reverse());
-        axios
-          .get("http://localhost:9090/api/accounts/" + user.username)
-          .then((response) => {
-            dispatch(authActions.setAuth(response.data));
-            setBalance(response.data.customer.balance);
-          });
+        if (res.data.length > invoiceData.length) {
+          setInvoiceData(res.data.reverse());
+          axios
+            .get("http://localhost:9090/api/accounts/" + user.username)
+            .then((response) => {
+              if (response.data.customer.balance !== balance) {
+                dispatch(authActions.setAuth(response.data));
+                setBalance(response.data.customer.balance);
+              }
+            })
+            .catch((error) => console.log(error));
+        }
       })
       .catch((error) => console.log(error));
     axios
@@ -76,12 +81,15 @@ function BalanceManagement() {
         axios
           .get("http://localhost:9090/api/accounts/" + user.username)
           .then((response) => {
-            dispatch(authActions.setAuth(response.data));
-            setBalance(response.data.customer.balance);
-          });
+            if (response.data.customer.balance !== balance) {
+              dispatch(authActions.setAuth(response.data));
+              setBalance(response.data.customer.balance);
+            }
+          })
+          .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
-  }, [invoiceData, chargeRequestData, user, balance]);
+  }, [invoiceData, chargeRequestData, user, balance, dispatch]);
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <h4>Thông tin số dư tài khoản</h4>

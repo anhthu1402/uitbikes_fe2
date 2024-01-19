@@ -28,7 +28,7 @@ function NotBeenReviewed() {
   return (
     <div>
       <Box>
-        {data && data.length > 0 ? (
+        {data ? (
           data.map((child, index) => (
             <NotBeenReviewedItem child={child} key={index} />
           ))

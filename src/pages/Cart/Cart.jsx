@@ -195,7 +195,7 @@ function Cart() {
     } else {
       setContentDialog("Vui lòng điền đầy đủ thông tin cá nhân để giao hàng.");
       setButtonDialog("Trang cá nhân");
-      setLink("profile");
+      setLink("/profile/edit-profile");
     }
     setOpenDischarge(!openDischarge);
   };

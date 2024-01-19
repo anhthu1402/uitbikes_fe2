@@ -3,7 +3,7 @@ import React from "react";
 import "./SideBarItem.css";
 import { useNavigate } from "react-router-dom";
 
-function SideBarItem({ item, path, setPath }) {
+function SideBarItem({ item }) {
   const navigate = useNavigate();
   return (
     <Box
@@ -11,15 +11,13 @@ function SideBarItem({ item, path, setPath }) {
       onClick={() => {
         if (item.path !== "profile") {
           navigate("/profile/" + item.path);
-          setPath(item.path);
         } else {
           navigate("/profile");
-          setPath("profile");
         }
       }}
       title={item.title}
       sx={
-        item.path === path
+        window.location.pathname.includes(item.path)
           ? {
               display: "flex",
               flexDirection: "row",

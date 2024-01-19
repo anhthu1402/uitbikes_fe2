@@ -184,7 +184,7 @@ function Navigation(props) {
           <Link to={"cart"} onClick={() => setOpen(false)}>
             <Badge
               className="icons"
-              showZero="false"
+              showZero={false}
               color="error"
               variant="standard"
               badgeContent={cartNumber > 0 ? cartNumber : null}
@@ -201,7 +201,7 @@ function Navigation(props) {
               className="icons"
             />
           </Link>
-          <Link to={"profile"} onClick={() => setOpen(false)}>
+          <Link to={"profile/edit-profile"} onClick={() => setOpen(false)}>
             <Avatar
               className="icons"
               sx={{

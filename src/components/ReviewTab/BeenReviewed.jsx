@@ -10,7 +10,7 @@ function BeenReviewed() {
     axios
       .get("http://localhost:9090/api/reviews/customer/" + user.customer.id)
       .then((res) => {
-        setData(res.data);
+        setData(res.data.reverse());
       })
       .catch((error) => console.log(error));
   }, [data, user.customer.id]);

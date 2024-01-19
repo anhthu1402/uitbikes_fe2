@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         element: <Profile />,
         children: [
           {
-            index: true,
+            path: "edit-profile",
             element: <EditProfile />
           },
           {

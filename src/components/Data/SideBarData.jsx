@@ -11,7 +11,7 @@ export const SideBarData = [
   {
     title: "Tài Khoản",
     icon: PersonRounded,
-    path: "profile",
+    path: "edit-profile",
   },
   {
     title: "Đổi mật khẩu",
