@@ -63,12 +63,20 @@ export const notiEInvoiceStatus = (invoiceId, status) => {
 }
 dayjs.extend(utc)
 export const FormatDate = (string) => {
-    return dayjs(new Date(string)).local().format('DD/MM/YYYY');
+    return dayjs.utc(new Date(string)).local().format('DD/MM/YYYY');
 }
 
 export const FormatDateTime = (string) => {
-
     return dayjs.utc(new Date(string)).local().format('HH:mm:ss DD/MM/YYYY');
+    // return new Date(string).toLocaleString(undefined, {
+    //     hour: '2-digit',
+    //     minute: '2-digit',
+    //     second: '2-digit',
+    //     day: '2-digit',
+    //     month: '2-digit',
+    //     year: 'numeric',
+    // // });
+    // return new Date(string).toLocaleString()
 }
 
 export const getPaymentHistory = (status) => {
